@@ -1,0 +1,134 @@
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { motion } from "framer-motion";
+import { getSessions, getStreak, getProfile } from "@/lib/storage";
+import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode } from "@/lib/types";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import { Moon, Wind, Target, Play, Flame } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const DashboardPage = () => {
+  const { t } = useLanguage();
+  const navigate = useNavigate();
+  const profile = getProfile();
+  const sessions = getSessions();
+  const streak = getStreak();
+
+  const modeFromProfile: SessionMode = profile ? GOAL_TO_MODE[profile.goal] : "calm";
+
+  const quickModes = [
+    { mode: "sleep" as SessionMode, label: t("dashboard.sleep"), desc: t("dashboard.sleep.desc"), icon: Moon, color: "from-indigo-600 to-blue-700" },
+    { mode: "calm" as SessionMode, label: t("dashboard.calm"), desc: t("dashboard.calm.desc"), icon: Wind, color: "from-teal-600 to-cyan-700" },
+    { mode: "focus" as SessionMode, label: t("dashboard.focus"), desc: t("dashboard.focus.desc"), icon: Target, color: "from-amber-600 to-orange-700" },
+  ];
+
+  // Weekly emotional data
+  const last7Days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (6 - i));
+    const dateStr = d.toISOString().split("T")[0];
+    const daySessions = sessions.filter((s) => s.date.startsWith(dateStr));
+    const feedbacks = daySessions.filter((s) => s.feedback).map((s) => s.feedback!);
+    const avg = feedbacks.length ? feedbacks.reduce((a, b) => a + b, 0) / feedbacks.length : 0;
+    return {
+      day: d.toLocaleDateString(undefined, { weekday: "short" }),
+      value: Math.round(avg * 10) / 10,
+    };
+  });
+
+  return (
+    <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-4xl mx-auto">
+      {/* Welcome */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+        <h1 className="font-display text-2xl font-bold text-foreground mb-2">{t("dashboard.welcome")}</h1>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5 text-sonus-purple">
+            <Flame className="w-5 h-5" />
+            <span className="font-display font-semibold">{streak} {t("dashboard.days")}</span>
+          </div>
+          <span className="text-muted-foreground text-sm">
+            {t("dashboard.totalSessions")}: {sessions.length}
+          </span>
+        </div>
+      </motion.div>
+
+      {/* Main CTA */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <Button
+          onClick={() => navigate(`/session?mode=${modeFromProfile}`)}
+          className="w-full py-6 text-lg font-display font-semibold gradient-primary text-primary-foreground border-0 rounded-2xl glow-purple mb-8"
+        >
+          <Play className="w-5 h-5 mr-2" />
+          {t("dashboard.start")}
+        </Button>
+      </motion.div>
+
+      {/* Quick Modes */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <h2 className="font-display font-semibold text-foreground mb-4">{t("dashboard.quickModes")}</h2>
+        <div className="grid grid-cols-3 gap-3 mb-8">
+          {quickModes.map((m) => (
+            <button
+              key={m.mode}
+              onClick={() => navigate(`/session?mode=${m.mode}`)}
+              className="bg-card/50 border border-border/50 rounded-2xl p-4 text-center hover:border-sonus-purple/30 transition-all group"
+            >
+              <div className={`w-12 h-12 mx-auto mb-2 rounded-xl bg-gradient-to-br ${m.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                <m.icon className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-sm font-medium text-foreground">{m.label}</div>
+              <div className="text-xs text-muted-foreground">{m.desc}</div>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Emotional Evolution */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <h2 className="font-display font-semibold text-foreground mb-4">{t("dashboard.evolution")}</h2>
+        <div className="bg-card/50 border border-border/50 rounded-2xl p-4 mb-8">
+          {sessions.length > 0 ? (
+            <ResponsiveContainer width="100%" height={160}>
+              <LineChart data={last7Days}>
+                <XAxis dataKey="day" tick={{ fontSize: 12, fill: "hsl(220, 15%, 55%)" }} axisLine={false} tickLine={false} />
+                <YAxis domain={[0, 5]} hide />
+                <Tooltip
+                  contentStyle={{ background: "hsl(230, 25%, 10%)", border: "1px solid hsl(230, 20%, 18%)", borderRadius: "8px" }}
+                  labelStyle={{ color: "hsl(220, 20%, 95%)" }}
+                />
+                <Line type="monotone" dataKey="value" stroke="hsl(260, 80%, 60%)" strokeWidth={2} dot={{ fill: "hsl(260, 80%, 60%)", r: 4 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-muted-foreground text-center py-8 text-sm">{t("dashboard.noSessions")}</p>
+          )}
+        </div>
+      </motion.div>
+
+      {/* Recent Sessions */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+        <h2 className="font-display font-semibold text-foreground mb-4">{t("dashboard.history")}</h2>
+        <div className="space-y-2">
+          {sessions.slice(0, 5).map((s) => (
+            <div key={s.id} className="bg-card/50 border border-border/50 rounded-xl p-3 flex items-center justify-between">
+              <div>
+                <span className="text-sm font-medium text-foreground capitalize">{s.mode}</span>
+                <span className="text-xs text-muted-foreground ml-2">
+                  {Math.round(s.duration / 60)} min · {FREQUENCY_PRESETS[s.mode]?.label}
+                </span>
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {new Date(s.date).toLocaleDateString()}
+              </div>
+            </div>
+          ))}
+          {sessions.length === 0 && (
+            <p className="text-muted-foreground text-sm text-center py-4">{t("dashboard.noSessions")}</p>
+          )}
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+export default DashboardPage;
