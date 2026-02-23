@@ -13,27 +13,30 @@ export class BinauralAudioEngine {
   private isPlaying = false;
 
   async start(carrierHz: number, beatHz: number, volume = 0.5) {
+    // Create context and ensure it's running (autoplay policy)
     this.ctx = new AudioContext();
-    
+    if (this.ctx.state === "suspended") {
+      await this.ctx.resume();
+    }
+
     this.merger = this.ctx.createChannelMerger(2);
     this.masterGain = this.ctx.createGain();
-    this.masterGain.gain.value = 0;
-    
+
     // Left oscillator
     this.leftOsc = this.ctx.createOscillator();
     this.leftOsc.type = "sine";
-    this.leftOsc.frequency.value = carrierHz;
+    this.leftOsc.frequency.setValueAtTime(carrierHz, this.ctx.currentTime);
     this.leftGain = this.ctx.createGain();
-    this.leftGain.gain.value = 1;
+    this.leftGain.gain.setValueAtTime(1, this.ctx.currentTime);
     this.leftOsc.connect(this.leftGain);
     this.leftGain.connect(this.merger, 0, 0);
 
     // Right oscillator
     this.rightOsc = this.ctx.createOscillator();
     this.rightOsc.type = "sine";
-    this.rightOsc.frequency.value = carrierHz + beatHz;
+    this.rightOsc.frequency.setValueAtTime(carrierHz + beatHz, this.ctx.currentTime);
     this.rightGain = this.ctx.createGain();
-    this.rightGain.gain.value = 1;
+    this.rightGain.gain.setValueAtTime(1, this.ctx.currentTime);
     this.rightOsc.connect(this.rightGain);
     this.rightGain.connect(this.merger, 0, 1);
 
@@ -42,27 +45,39 @@ export class BinauralAudioEngine {
     this.analyser.fftSize = 2048;
     this.analyser.smoothingTimeConstant = 0.8;
 
+    // Audio routing: merger -> masterGain -> analyser -> destination
     this.merger.connect(this.masterGain);
     this.masterGain.connect(this.analyser);
     this.analyser.connect(this.ctx.destination);
 
-    this.leftOsc.start();
-    this.rightOsc.start();
+    // Start oscillators
+    this.leftOsc.start(0);
+    this.rightOsc.start(0);
 
-    // Fade in
-    this.masterGain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 2);
+    // Fade in: set to 0 first, then ramp up
+    this.masterGain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+    this.masterGain.gain.exponentialRampToValueAtTime(
+      Math.max(volume, 0.001),
+      this.ctx.currentTime + 2
+    );
+
     this.isPlaying = true;
   }
 
   setVolume(volume: number) {
     if (this.masterGain && this.ctx) {
-      this.masterGain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 0.3);
+      const safeVol = Math.max(volume, 0.001);
+      this.masterGain.gain.cancelScheduledValues(this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, this.ctx.currentTime);
+      this.masterGain.gain.exponentialRampToValueAtTime(safeVol, this.ctx.currentTime + 0.3);
     }
   }
 
   setFrequency(carrierHz: number, beatHz: number) {
     if (this.leftOsc && this.rightOsc && this.ctx) {
+      this.leftOsc.frequency.setValueAtTime(this.leftOsc.frequency.value, this.ctx.currentTime);
       this.leftOsc.frequency.linearRampToValueAtTime(carrierHz, this.ctx.currentTime + 0.5);
+      this.rightOsc.frequency.setValueAtTime(this.rightOsc.frequency.value, this.ctx.currentTime);
       this.rightOsc.frequency.linearRampToValueAtTime(carrierHz + beatHz, this.ctx.currentTime + 0.5);
     }
   }
@@ -72,7 +87,7 @@ export class BinauralAudioEngine {
     if (!this.ctx) return;
 
     this.ambientGain = this.ctx.createGain();
-    this.ambientGain.gain.value = 0;
+    this.ambientGain.gain.setValueAtTime(0.001, this.ctx.currentTime);
 
     const bufferSize = 4096;
     const processor = this.ctx.createScriptProcessor(bufferSize, 1, 1);
@@ -87,7 +102,6 @@ export class BinauralAudioEngine {
         if (type === "whitenoise") {
           output[i] = white * 0.5;
         } else if (type === "rain") {
-          // Pink-ish noise with crackle
           b0 = 0.99886 * b0 + white * 0.0555179;
           b1 = 0.99332 * b1 + white * 0.0750759;
           b2 = 0.969 * b2 + white * 0.153852;
@@ -97,7 +111,6 @@ export class BinauralAudioEngine {
           output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.06;
           b6 = white * 0.115926;
         } else if (type === "ocean") {
-          // Brown noise (ocean-like)
           b0 = (b0 + 0.02 * white) / 1.02;
           output[i] = b0 * 3.5;
         }
@@ -106,13 +119,19 @@ export class BinauralAudioEngine {
 
     processor.connect(this.ambientGain);
     this.ambientGain.connect(this.ctx.destination);
-    this.ambientGain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 1);
+    this.ambientGain.gain.exponentialRampToValueAtTime(
+      Math.max(volume, 0.001),
+      this.ctx.currentTime + 1
+    );
     this.noiseNode = processor as any;
   }
 
   setAmbientVolume(volume: number) {
     if (this.ambientGain && this.ctx) {
-      this.ambientGain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 0.3);
+      const safeVol = Math.max(volume, 0.001);
+      this.ambientGain.gain.cancelScheduledValues(this.ctx.currentTime);
+      this.ambientGain.gain.setValueAtTime(this.ambientGain.gain.value, this.ctx.currentTime);
+      this.ambientGain.gain.exponentialRampToValueAtTime(safeVol, this.ctx.currentTime + 0.3);
     }
   }
 
@@ -143,14 +162,17 @@ export class BinauralAudioEngine {
 
   async stop() {
     if (this.masterGain && this.ctx) {
-      this.masterGain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 1);
+      this.masterGain.gain.cancelScheduledValues(this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, this.ctx.currentTime);
+      this.masterGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 1);
       await new Promise((r) => setTimeout(r, 1100));
     }
     this.stopAmbient();
-    this.leftOsc?.stop();
-    this.rightOsc?.stop();
-    await this.ctx?.close();
+    try { this.leftOsc?.stop(); } catch {}
+    try { this.rightOsc?.stop(); } catch {}
+    try { await this.ctx?.close(); } catch {}
     this.ctx = null;
+    this.analyser = null;
     this.isPlaying = false;
   }
 
