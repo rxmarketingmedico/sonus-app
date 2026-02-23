@@ -2,8 +2,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { LanguageProvider } from "@/i18n/LanguageContext";
+import { AnimatePresence, motion } from "framer-motion";
 import AppNavigation from "@/components/AppNavigation";
 import LandingPage from "./pages/LandingPage";
 import OnboardingPage from "./pages/OnboardingPage";
@@ -17,6 +18,46 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const pageVariants = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -12 },
+};
+
+const pageTransition = { duration: 0.25, ease: "easeInOut" as const };
+
+const PageWrapper = ({ children }: { children: React.ReactNode }) => (
+  <motion.div
+    variants={pageVariants}
+    initial="initial"
+    animate="animate"
+    exit="exit"
+    transition={pageTransition}
+  >
+    {children}
+  </motion.div>
+);
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageWrapper><LandingPage /></PageWrapper>} />
+        <Route path="/onboarding" element={<PageWrapper><OnboardingPage /></PageWrapper>} />
+        <Route path="/dashboard" element={<PageWrapper><DashboardPage /></PageWrapper>} />
+        <Route path="/session" element={<PageWrapper><SessionPage /></PageWrapper>} />
+        <Route path="/feedback" element={<PageWrapper><FeedbackPage /></PageWrapper>} />
+        <Route path="/history" element={<PageWrapper><HistoryPage /></PageWrapper>} />
+        <Route path="/plans" element={<PageWrapper><PlansPage /></PageWrapper>} />
+        <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />
+        <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
@@ -26,17 +67,7 @@ const App = () => (
         <BrowserRouter>
           <AppNavigation />
           <div className="md:ml-16">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/onboarding" element={<OnboardingPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/session" element={<SessionPage />} />
-              <Route path="/feedback" element={<FeedbackPage />} />
-              <Route path="/history" element={<HistoryPage />} />
-              <Route path="/plans" element={<PlansPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AnimatedRoutes />
           </div>
         </BrowserRouter>
       </TooltipProvider>
