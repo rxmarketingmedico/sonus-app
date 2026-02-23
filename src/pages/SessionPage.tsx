@@ -8,6 +8,7 @@ import { getProfile, saveSession } from "@/lib/storage";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
+import ReactiveWaves from "@/components/ReactiveWaves";
 
 const SessionPage = () => {
   const { t } = useLanguage();
@@ -143,6 +144,9 @@ const SessionPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 relative">
+      {/* Reactive wave visualization */}
+      <ReactiveWaves beatHz={freq.beat} isPlaying={isPlaying} isPaused={isPaused} />
+
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sonus-purple/5 blur-3xl animate-pulse-glow" />

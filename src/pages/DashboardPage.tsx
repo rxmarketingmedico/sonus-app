@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { getSessions, getStreak, getProfile } from "@/lib/storage";
 import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode } from "@/lib/types";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
-import { Moon, Wind, Target, Play, Flame } from "lucide-react";
+import { Moon, Wind, Target, Play, Flame, Brain, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const DashboardPage = () => {
@@ -19,8 +19,31 @@ const DashboardPage = () => {
   const quickModes = [
     { mode: "sleep" as SessionMode, label: t("dashboard.sleep"), desc: t("dashboard.sleep.desc"), icon: Moon, color: "from-indigo-600 to-blue-700" },
     { mode: "calm" as SessionMode, label: t("dashboard.calm"), desc: t("dashboard.calm.desc"), icon: Wind, color: "from-teal-600 to-cyan-700" },
+    { mode: "alpha" as SessionMode, label: t("dashboard.alpha"), desc: t("dashboard.alpha.desc"), icon: Brain, color: "from-green-600 to-emerald-700" },
     { mode: "focus" as SessionMode, label: t("dashboard.focus"), desc: t("dashboard.focus.desc"), icon: Target, color: "from-amber-600 to-orange-700" },
   ];
+
+  // Best frequency stat
+  const getBestFrequency = () => {
+    const modeScores: Record<string, { total: number; count: number }> = {};
+    sessions.forEach((s) => {
+      if (s.feedback) {
+        if (!modeScores[s.mode]) modeScores[s.mode] = { total: 0, count: 0 };
+        modeScores[s.mode].total += s.feedback;
+        modeScores[s.mode].count += 1;
+      }
+    });
+    let best = "";
+    let bestAvg = 0;
+    Object.entries(modeScores).forEach(([mode, data]) => {
+      const avg = data.total / data.count;
+      if (avg > bestAvg) {
+        bestAvg = avg;
+        best = mode;
+      }
+    });
+    return best ? FREQUENCY_PRESETS[best as SessionMode]?.label || best : "—";
+  };
 
   // Weekly emotional data
   const last7Days = Array.from({ length: 7 }, (_, i) => {
@@ -41,7 +64,7 @@ const DashboardPage = () => {
       {/* Welcome */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
         <h1 className="font-display text-2xl font-bold text-foreground mb-2">{t("dashboard.welcome")}</h1>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-1.5 text-sonus-purple">
             <Flame className="w-5 h-5" />
             <span className="font-display font-semibold">{streak} {t("dashboard.days")}</span>
@@ -49,6 +72,10 @@ const DashboardPage = () => {
           <span className="text-muted-foreground text-sm">
             {t("dashboard.totalSessions")}: {sessions.length}
           </span>
+          <div className="flex items-center gap-1.5 text-sonus-cyan">
+            <Zap className="w-4 h-4" />
+            <span className="text-sm">{t("dashboard.bestFrequency")}: {getBestFrequency()}</span>
+          </div>
         </div>
       </motion.div>
 
@@ -66,7 +93,7 @@ const DashboardPage = () => {
       {/* Quick Modes */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <h2 className="font-display font-semibold text-foreground mb-4">{t("dashboard.quickModes")}</h2>
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {quickModes.map((m) => (
             <button
               key={m.mode}
