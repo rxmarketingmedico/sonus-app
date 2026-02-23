@@ -49,16 +49,16 @@ const ProfilePage = () => {
         {profile && (
           <div className="bg-card/50 border border-border/50 rounded-xl p-4 space-y-2">
             <div className="text-sm text-muted-foreground">
-              Objetivo: <span className="text-foreground capitalize">{profile.goal}</span>
+              {t("profile.goal")}: <span className="text-foreground capitalize">{profile.goal}</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              Período: <span className="text-foreground capitalize">{profile.period}</span>
+              {t("profile.period")}: <span className="text-foreground capitalize">{profile.period}</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              Estresse: <span className="text-foreground capitalize">{profile.stressLevel}</span>
+              {t("profile.stress")}: <span className="text-foreground capitalize">{profile.stressLevel}</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              Duração: <span className="text-foreground">{profile.duration} min</span>
+              {t("profile.duration")}: <span className="text-foreground">{profile.duration} {t("general.minutes")}</span>
             </div>
           </div>
         )}

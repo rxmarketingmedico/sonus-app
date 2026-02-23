@@ -55,6 +55,8 @@ export const translations = {
     "dashboard.sleep.desc": "Delta 1–4 Hz",
     "dashboard.calm": "Calma",
     "dashboard.calm.desc": "Theta 4–8 Hz",
+    "dashboard.alpha": "Relaxamento",
+    "dashboard.alpha.desc": "Alpha 8–13 Hz",
     "dashboard.focus": "Foco",
     "dashboard.focus.desc": "Beta 13–20 Hz",
     "dashboard.history": "Sessões Recentes",
@@ -107,6 +109,10 @@ export const translations = {
     "profile.editOnboarding": "Refazer Onboarding",
     "profile.language": "Idioma",
     "profile.plan": "Plano",
+    "profile.goal": "Objetivo",
+    "profile.period": "Período",
+    "profile.stress": "Estresse",
+    "profile.duration": "Duração",
 
     // General
     "general.loading": "Carregando...",
@@ -169,6 +175,8 @@ export const translations = {
     "dashboard.sleep.desc": "Delta 1–4 Hz",
     "dashboard.calm": "Calm",
     "dashboard.calm.desc": "Theta 4–8 Hz",
+    "dashboard.alpha": "Relaxation",
+    "dashboard.alpha.desc": "Alpha 8–13 Hz",
     "dashboard.focus": "Focus",
     "dashboard.focus.desc": "Beta 13–20 Hz",
     "dashboard.history": "Recent Sessions",
@@ -221,6 +229,10 @@ export const translations = {
     "profile.editOnboarding": "Redo Onboarding",
     "profile.language": "Language",
     "profile.plan": "Plan",
+    "profile.goal": "Goal",
+    "profile.period": "Period",
+    "profile.stress": "Stress",
+    "profile.duration": "Duration",
 
     // General
     "general.loading": "Loading...",
