@@ -9,6 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
 import ReactiveWaves from "@/components/ReactiveWaves";
+import SessionPreparation from "@/components/SessionPreparation";
 
 const SessionPage = () => {
   const { t } = useLanguage();
@@ -125,20 +126,13 @@ const SessionPage = () => {
 
   if (!isPlaying) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
-          <div className="w-32 h-32 mx-auto mb-8 rounded-full gradient-primary glow-purple animate-breathe" />
-          <h1 className="font-display text-3xl font-bold text-foreground mb-2 capitalize">{mode}</h1>
-          <p className="text-muted-foreground mb-2">{freq.label} · {freq.beat} Hz</p>
-          <p className="text-sm text-muted-foreground mb-8">
-            {Math.round(targetDuration / 60)} {t("general.minutes")}
-          </p>
-          <Button onClick={startSession} className="px-10 py-6 text-lg gradient-primary text-primary-foreground border-0 rounded-full glow-purple">
-            <Play className="w-6 h-6 mr-2" />
-            {t("dashboard.start")}
-          </Button>
-        </motion.div>
-      </div>
+      <SessionPreparation
+        onReady={startSession}
+        modeName={mode}
+        frequencyLabel={freq.label}
+        beatHz={freq.beat}
+        durationMin={Math.round(targetDuration / 60)}
+      />
     );
   }
 
