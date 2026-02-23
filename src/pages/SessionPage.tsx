@@ -145,7 +145,7 @@ const SessionPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 relative">
       {/* Reactive wave visualization */}
-      <ReactiveWaves beatHz={freq.beat} isPlaying={isPlaying} isPaused={isPaused} />
+      <ReactiveWaves engine={engineRef.current} isPlaying={isPlaying} isPaused={isPaused} />
 
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
