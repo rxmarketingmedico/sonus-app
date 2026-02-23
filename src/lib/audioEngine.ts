@@ -9,6 +9,7 @@ export class BinauralAudioEngine {
   private ambientSource: AudioBufferSourceNode | null = null;
   private ambientGain: GainNode | null = null;
   private noiseNode: AudioWorkletNode | ScriptProcessorNode | null = null;
+  private analyser: AnalyserNode | null = null;
   private isPlaying = false;
 
   async start(carrierHz: number, beatHz: number, volume = 0.5) {
@@ -36,8 +37,14 @@ export class BinauralAudioEngine {
     this.rightOsc.connect(this.rightGain);
     this.rightGain.connect(this.merger, 0, 1);
 
+    // Analyser for visualization
+    this.analyser = this.ctx.createAnalyser();
+    this.analyser.fftSize = 2048;
+    this.analyser.smoothingTimeConstant = 0.8;
+
     this.merger.connect(this.masterGain);
-    this.masterGain.connect(this.ctx.destination);
+    this.masterGain.connect(this.analyser);
+    this.analyser.connect(this.ctx.destination);
 
     this.leftOsc.start();
     this.rightOsc.start();
@@ -149,5 +156,23 @@ export class BinauralAudioEngine {
 
   getIsPlaying() {
     return this.isPlaying;
+  }
+
+  getAnalyser(): AnalyserNode | null {
+    return this.analyser;
+  }
+
+  getWaveformData(): Uint8Array | null {
+    if (!this.analyser) return null;
+    const data = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteTimeDomainData(data);
+    return data;
+  }
+
+  getFrequencyData(): Uint8Array | null {
+    if (!this.analyser) return null;
+    const data = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteFrequencyData(data);
+    return data;
   }
 }

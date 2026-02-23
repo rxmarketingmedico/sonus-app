@@ -1,70 +1,131 @@
-import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useRef, useEffect, useCallback } from "react";
+import { BinauralAudioEngine } from "@/lib/audioEngine";
 
 interface ReactiveWavesProps {
-  beatHz: number;
+  engine: BinauralAudioEngine | null;
   isPlaying: boolean;
   isPaused: boolean;
 }
 
-const ReactiveWaves = ({ beatHz, isPlaying, isPaused }: ReactiveWavesProps) => {
-  // Map beat frequency to visual parameters
-  const waveConfig = useMemo(() => {
-    // Lower freq = slower, wider waves. Higher freq = faster, tighter waves
-    const speed = Math.max(2, 12 - beatHz * 0.5);
-    const amplitude = 20 + beatHz * 2;
-    const layers = 3;
-    return { speed, amplitude, layers };
-  }, [beatHz]);
+const WAVE_LAYERS = 3;
+const LAYER_COLORS = [
+  { r: 130, g: 80, b: 255 },   // purple
+  { r: 50, g: 140, b: 255 },   // blue
+  { r: 0, g: 210, b: 200 },    // cyan
+];
 
-  if (!isPlaying || isPaused) return null;
+const ReactiveWaves = ({ engine, isPlaying, isPaused }: ReactiveWavesProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animFrameRef = useRef<number>(0);
+
+  const draw = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !engine) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const waveform = engine.getWaveformData();
+    const freq = engine.getFrequencyData();
+
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    if (!waveform || !freq) {
+      animFrameRef.current = requestAnimationFrame(draw);
+      return;
+    }
+
+    // Calculate overall energy from frequency data for glow intensity
+    let energy = 0;
+    for (let i = 0; i < freq.length / 4; i++) {
+      energy += freq[i];
+    }
+    energy = energy / (freq.length / 4) / 255;
+
+    const sliceWidth = w / waveform.length;
+
+    for (let layer = 0; layer < WAVE_LAYERS; layer++) {
+      const color = LAYER_COLORS[layer];
+      const yOffset = (layer - 1) * 30;
+      const alpha = 0.4 - layer * 0.1 + energy * 0.3;
+      const amplitudeScale = 1.5 + layer * 0.5 + energy * 2;
+
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
+      ctx.lineWidth = 2 - layer * 0.3;
+      ctx.shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${energy * 0.6})`;
+      ctx.shadowBlur = 10 + energy * 20;
+
+      let x = 0;
+      for (let i = 0; i < waveform.length; i++) {
+        // Normalize waveform: 128 = silence, 0/255 = peaks
+        const v = (waveform[i] - 128) / 128;
+        const y = (h / 2) + yOffset + v * (h / 2) * amplitudeScale * 0.4;
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+        x += sliceWidth;
+      }
+
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Draw filled area underneath with low opacity
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha * 0.08})`;
+      ctx.fill();
+    }
+
+    animFrameRef.current = requestAnimationFrame(draw);
+  }, [engine]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      const ctx = canvas.getContext("2d");
+      if (ctx) ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying && !isPaused) {
+      animFrameRef.current = requestAnimationFrame(draw);
+    } else {
+      cancelAnimationFrame(animFrameRef.current);
+      // Clear canvas when paused
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    return () => cancelAnimationFrame(animFrameRef.current);
+  }, [isPlaying, isPaused, draw]);
+
+  if (!isPlaying) return null;
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-      {Array.from({ length: waveConfig.layers }).map((_, i) => {
-        const delay = i * 0.8;
-        const yOffset = 40 + i * 8;
-        const opacity = 0.6 - i * 0.15;
-
-        return (
-          <motion.svg
-            key={i}
-            className="absolute bottom-0 left-0 w-[200%] h-full"
-            viewBox="0 0 2880 320"
-            preserveAspectRatio="none"
-            animate={{ x: [0, -1440] }}
-            transition={{
-              duration: waveConfig.speed + i * 2,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{ opacity }}
-          >
-            <path
-              fill="none"
-              stroke={`url(#waveGrad${i})`}
-              strokeWidth="2"
-              d={`M0,${160 + yOffset} ${Array.from({ length: 24 }, (_, j) => {
-                const x = j * 120;
-                const cp1x = x + 30;
-                const cp2x = x + 90;
-                const nextX = x + 120;
-                const yUp = 160 + yOffset - waveConfig.amplitude;
-                const yDown = 160 + yOffset + waveConfig.amplitude;
-                return `C${cp1x},${j % 2 === 0 ? yUp : yDown} ${cp2x},${j % 2 === 0 ? yUp : yDown} ${nextX},${160 + yOffset}`;
-              }).join(" ")}`}
-            />
-            <defs>
-              <linearGradient id={`waveGrad${i}`} x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="hsl(260, 80%, 60%)" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="hsl(200, 90%, 50%)" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="hsl(190, 90%, 50%)" stopOpacity="0.8" />
-              </linearGradient>
-            </defs>
-          </motion.svg>
-        );
-      })}
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ opacity: 0.6 }}
+    />
   );
 };
 
