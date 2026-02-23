@@ -82,6 +82,21 @@ export const translations = {
     "session.breathe": "Respiração",
     "session.fullscreen": "Tela Cheia",
 
+    // Preparation
+    "prep.title": "Prepare-se para sua sessão",
+    "prep.step1.title": "Encontre um lugar tranquilo",
+    "prep.step1.desc": "Escolha um ambiente calmo, sem distrações. Feche a porta se possível.",
+    "prep.step2.title": "Coloque seus fones de ouvido",
+    "prep.step2.desc": "Binaural beats funcionam APENAS com fones de ouvido. Use fones estéreo para o efeito completo.",
+    "prep.step3.title": "Ajuste sua postura",
+    "prep.step3.desc": "Sente-se confortavelmente ou deite-se. Relaxe os ombros e a mandíbula.",
+    "prep.step4.title": "Respire fundo",
+    "prep.step4.desc": "Feche os olhos. Inspire pelo nariz por 4 segundos, expire pela boca por 6 segundos.",
+    "prep.ready": "Estou Pronto",
+    "prep.skip": "Pular preparação",
+    "prep.next": "Próximo",
+    "prep.headphones": "Fones de ouvido são essenciais",
+
     // Feedback
     "feedback.title": "Como você se sente agora?",
     "feedback.save": "Salvar",
@@ -201,6 +216,21 @@ export const translations = {
     "session.none": "None",
     "session.breathe": "Breathing",
     "session.fullscreen": "Fullscreen",
+
+    // Preparation
+    "prep.title": "Prepare for your session",
+    "prep.step1.title": "Find a quiet place",
+    "prep.step1.desc": "Choose a calm environment without distractions. Close the door if possible.",
+    "prep.step2.title": "Put on your headphones",
+    "prep.step2.desc": "Binaural beats ONLY work with headphones. Use stereo headphones for the full effect.",
+    "prep.step3.title": "Adjust your posture",
+    "prep.step3.desc": "Sit comfortably or lie down. Relax your shoulders and jaw.",
+    "prep.step4.title": "Take a deep breath",
+    "prep.step4.desc": "Close your eyes. Inhale through your nose for 4 seconds, exhale through your mouth for 6 seconds.",
+    "prep.ready": "I'm Ready",
+    "prep.skip": "Skip preparation",
+    "prep.next": "Next",
+    "prep.headphones": "Headphones are essential",
 
     // Feedback
     "feedback.title": "How are you feeling now?",
