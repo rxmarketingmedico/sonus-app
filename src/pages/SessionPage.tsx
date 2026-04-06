@@ -15,7 +15,7 @@ import ReactiveWaves from "@/components/ReactiveWaves";
 import SessionPreparation from "@/components/SessionPreparation";
 import MoodCheckIn from "@/components/MoodCheckIn";
 import BreathworkGuide from "@/components/BreathworkGuide";
-import PaywallModal from "@/components/PaywallModal";
+
 
 const SessionPage = () => {
   const { t } = useLanguage();
