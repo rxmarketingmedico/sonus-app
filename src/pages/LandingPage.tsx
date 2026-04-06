@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Check, Moon, Brain, Zap, Heart, Shield, Star, ChevronDown, Play, Headphones, Volume2, BarChart3, Wind } from "lucide-react";
+import AudioDemo from "@/components/AudioDemo";
 import { SessionMockup, DashboardMockup, SleepMockup } from "@/components/AppMockup";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -337,6 +338,24 @@ const LandingPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
         <div className="relative z-10 h-full flex items-center justify-center">
           <AnimatedWaveform />
+        </div>
+      </section>
+
+      {/* ===== TRY IT NOW - AUDIO DEMO ===== */}
+      <section className="py-24 px-4 relative">
+        <Particles />
+        <div className="max-w-4xl mx-auto">
+          <motion.h2 {...fadeUp} className="font-display text-3xl md:text-5xl font-bold text-gradient mb-4 text-center">
+            {t("sales.demo.title")}
+          </motion.h2>
+          <motion.p {...fadeUp} className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto text-center">
+            {t("sales.demo.desc")}
+          </motion.p>
+
+          <AudioDemo
+            ctaText={t("sales.hero.cta")}
+            onCta={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+          />
         </div>
       </section>
 

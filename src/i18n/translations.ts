@@ -205,6 +205,9 @@ export const translations = {
     "sales.problem2": "Minha mente não para de acelerar",
     "sales.problem3": "Acordo cansado mesmo depois de dormir",
 
+    "sales.demo.title": "Experimente agora",
+    "sales.demo.desc": "Coloque seus fones de ouvido e sinta o efeito da terapia sonora em tempo real. 30 segundos gratuitos.",
+
     "sales.solution.title": "Como o Sonus funciona",
     "sales.solution.desc": "Três passos simples para transformar seu sono e bem-estar mental.",
     "sales.step1.title": "Personalize",
@@ -483,6 +486,9 @@ export const translations = {
     "sales.problem1": "I lie in bed for hours and can't fall asleep",
     "sales.problem2": "My mind won't stop racing",
     "sales.problem3": "I wake up tired even after sleeping",
+
+    "sales.demo.title": "Try it now",
+    "sales.demo.desc": "Put on your headphones and feel the effect of sound therapy in real time. 30 free seconds.",
 
     "sales.solution.title": "How Sonus works",
     "sales.solution.desc": "Three simple steps to transform your sleep and mental well-being.",
