@@ -120,9 +120,8 @@ const SleepLogPage = () => {
     setTimeout(() => setSaved(false), 2000);
   };
 
-  if (showPaywall) {
-    return <PaywallModal open={true} onClose={() => window.history.back()} />;
-  }
+
+
 
   return (
     <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-2xl mx-auto">
