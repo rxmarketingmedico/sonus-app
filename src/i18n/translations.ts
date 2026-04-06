@@ -242,15 +242,15 @@ export const translations = {
     "sales.test3": "A combinação de respiração guiada + sons binaurais é incrível. Super recomendo.",
 
     "sales.pricing.title": "Invista no seu bem-estar",
-    "sales.pricing.desc": "Escolha o plano ideal para você. Comece com 7 dias grátis.",
+    "sales.pricing.desc": "Escolha o plano ideal para você.",
     "sales.pricing.monthly": "Mensal",
     "sales.pricing.annual": "Anual",
     "sales.pricing.mo": "mês",
     "sales.pricing.yr": "ano",
     "sales.pricing.save": "Economize 69% — equivale a $2.50/mês",
     "sales.pricing.bestValue": "Melhor valor",
-    "sales.pricing.cta": "Começar teste grátis de 7 dias",
-    "sales.pricing.guarantee": "Garantia de 7 dias. Cancele quando quiser.",
+    "sales.pricing.cta": "Assinar agora",
+    "sales.pricing.guarantee": "Cancele quando quiser.",
 
     "sales.pro.f1": "Sessões ilimitadas",
     "sales.pro.f2": "Todos os sons ambiente",
