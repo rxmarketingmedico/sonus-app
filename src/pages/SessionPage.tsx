@@ -38,19 +38,8 @@ const SessionPage = () => {
   const [ambient, setAmbient] = useState<AmbientSound>("none");
   const [showBreathing, setShowBreathing] = useState(true);
   const [sessionId] = useState(() => crypto.randomUUID());
-  const [showPaywall, setShowPaywall] = useState(false);
 
   const engineRef = useRef<BinauralAudioEngine | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const freq = FREQUENCY_PRESETS[mode];
-
-  // Check session limit on mount
-  useEffect(() => {
-    if (!canStartSession()) {
-      setShowPaywall(true);
-    }
-  }, []);
 
   const startSession = useCallback(async () => {
     const engine = new BinauralAudioEngine();
