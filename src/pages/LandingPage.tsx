@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import logoSonus from "@/assets/logo-sonus.png";
 import heroMockup from "@/assets/hero-mockup.png";
 import waveBanner from "@/assets/wave-banner.jpg";
-import sleepPerson from "@/assets/sleep-person.png";
+import sleepPerson from "@/assets/sleep-person.jpg";
 
 const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
 const HOTMART_ANNUAL = "https://pay.hotmart.com/B105258428G?off=6ttxc4wf&checkoutMode=10";
