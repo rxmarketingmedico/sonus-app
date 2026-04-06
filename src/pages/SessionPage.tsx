@@ -21,7 +21,7 @@ const SessionPage = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { isFree, canStartSession } = useUserPlan();
+  const { } = useUserPlan();
   const [searchParams] = useSearchParams();
   const mode = (searchParams.get("mode") || "calm") as SessionMode;
   const profile = getProfile();
