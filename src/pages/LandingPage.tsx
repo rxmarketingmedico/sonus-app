@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Check, Moon, Brain, Zap, Heart, Shield, Star, ChevronDown, Play, Headphones, Volume2, BarChart3, Wind } from "lucide-react";
+import AudioDemo from "@/components/AudioDemo";
 import { SessionMockup, DashboardMockup, SleepMockup } from "@/components/AppMockup";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
