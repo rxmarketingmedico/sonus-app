@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 const DashboardPage = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
-  const { isFree, canStartSession, sessionsRemaining } = useUserPlan();
+  const { } = useUserPlan();
   const navigate = useNavigate();
   const profile = getProfile();
   const localSessions = getSessions();
