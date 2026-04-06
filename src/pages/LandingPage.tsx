@@ -245,7 +245,16 @@ const LandingPage = () => {
                   {t("sales.hero.cta")}
                 </Button>
               </motion.div>
-              <p className="text-sm text-muted-foreground">{t("sales.hero.noCreditCard")}</p>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-sonus-purple/30 font-display font-semibold text-lg px-8 py-6 rounded-full hover:bg-sonus-purple/10"
+                  onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  {t("sales.hero.seePlans")}
+                </Button>
+              </motion.div>
             </div>
 
             <div className="flex items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground">

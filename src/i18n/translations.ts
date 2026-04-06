@@ -200,9 +200,10 @@ export const translations = {
     "mode.focus": "Focar com clareza",
 
     // Sales
-    "sales.hero.title": "Durma melhor. Acalme sua mente.",
-    "sales.hero.subtitle": "Seu companheiro de calma e sono com IA",
-    "sales.hero.desc": "O Sonus usa terapia sonora personalizada para ajudar você a dormir, reduzir ansiedade e encontrar paz em apenas 10 minutos.",
+    "sales.hero.title": "Não consegue dormir? Ansioso? Estressado?",
+    "sales.hero.subtitle": "O Sonus acalma sua mente em 10 minutos.",
+    "sales.hero.desc": "Sessões de terapia sonora com IA personalizadas para o seu humor e padrões emocionais.",
+    "sales.hero.seePlans": "Ver planos",
     "sales.hero.cta": "Assine agora",
     "sales.hero.noCreditCard": "Cancele quando quiser",
     "sales.hero.users": "usuários",
@@ -490,9 +491,10 @@ export const translations = {
     "mode.focus": "Focus sharp",
 
     // Sales
-    "sales.hero.title": "Sleep better. Calm your mind.",
-    "sales.hero.subtitle": "Your AI-powered calm and sleep companion",
-    "sales.hero.desc": "Sonus uses personalized sound therapy to help you sleep, reduce anxiety, and find peace in just 10 minutes.",
+    "sales.hero.title": "Can't sleep? Anxious? Stressed?",
+    "sales.hero.subtitle": "Sonus calms your mind in 10 minutes.",
+    "sales.hero.desc": "AI-powered sound therapy sessions personalized to your mood and emotional patterns.",
+    "sales.hero.seePlans": "See plans",
     "sales.hero.cta": "Subscribe now",
     "sales.hero.noCreditCard": "Cancel anytime",
     "sales.hero.users": "users",
@@ -518,7 +520,7 @@ export const translations = {
     "sales.features.title": "Everything you need",
     "sales.features.desc": "Powerful tools based on neuroscience to transform your well-being.",
     "sales.feat1.title": "AI Sound Therapy",
-    "sales.feat1.desc": "Personalized binaural frequencies generated in real-time.",
+    "sales.feat1.desc": "Personalized frequencies generated in real-time by AI.",
     "sales.feat2.title": "Breathing Guide",
     "sales.feat2.desc": "Animated breathing exercises to calm you before sessions.",
     "sales.feat3.title": "Sleep Log",
@@ -531,10 +533,10 @@ export const translations = {
     "sales.feat6.desc": "Weekly reports on your progress and patterns.",
 
     "sales.testimonials.title": "What our users say",
-    "sales.testimonials.desc": "Thousands of people have already transformed their sleep and well-being with Sonus.",
+    "sales.testimonials.desc": "Join people around the world sleeping better and feeling calmer with Sonus.",
     "sales.test1": "I can finally fall asleep in under 15 minutes. Sonus changed my life.",
     "sales.test2": "I use it every night before bed. My anxiety has decreased dramatically.",
-    "sales.test3": "The combination of guided breathing + binaural sounds is incredible. Highly recommend.",
+    "sales.test3": "The combination of guided breathing + sound therapy is incredible. Highly recommend.",
 
     "sales.pricing.title": "Invest in your well-being",
     "sales.pricing.desc": "Choose the plan that's right for you.",
@@ -558,14 +560,14 @@ export const translations = {
     "sales.faq1.q": "What is sound therapy?",
     "sales.faq1.a": "It's a technique that uses specific sound frequencies to induce states of relaxation, focus, or sleep. Sonus generates these frequencies in real-time, personalized for you.",
     "sales.faq2.q": "Do I need headphones?",
-    "sales.faq2.a": "Yes, stereo headphones are recommended for the best experience with binaural frequencies. Any headphones will work.",
+    "sales.faq2.a": "Yes, stereo headphones are recommended for the best experience. Any headphones will work.",
     "sales.faq3.q": "How long does it take to see results?",
     "sales.faq3.a": "Most users feel a difference from the very first session. Consistent results appear after 1-2 weeks of regular use.",
     "sales.faq4.q": "Can I cancel anytime?",
     "sales.faq4.a": "Yes, no commitment. Cancel whenever you want, hassle-free.",
 
-    "sales.final.title": "Start sleeping better today",
-    "sales.final.desc": "Join thousands of people who have transformed their sleep and well-being with Sonus.",
+    "sales.final.title": "Your calm starts today.",
+    "sales.final.desc": "Start your journey to better sleep and a calmer mind with Sonus.",
     "sales.final.cta": "Subscribe now",
 
     "sales.youArePro": "You're a Pro subscriber!",
