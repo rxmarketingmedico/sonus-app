@@ -171,6 +171,37 @@ const DashboardPage = () => {
         </Button>
       </motion.div>
 
+      {/* Sleep Summary Card */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+        <div className="bg-card/50 border border-border/50 rounded-2xl p-4 mb-8 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600/20 flex items-center justify-center">
+              <Moon className="w-5 h-5 text-indigo-400" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-foreground">{t("sleep.card.title")}</p>
+              {lastSleep ? (
+                <p className="text-xs text-muted-foreground">
+                  {lastSleep.hours}h — {emojis[(lastSleep.quality - 1)] || "😐"}
+                </p>
+              ) : (
+                <p className="text-xs text-muted-foreground">{t("sleep.card.noLog")}</p>
+              )}
+            </div>
+          </div>
+          {!lastSleep && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="text-xs rounded-full"
+              onClick={() => navigate("/sleep")}
+            >
+              {t("sleep.card.cta")}
+            </Button>
+          )}
+        </div>
+      </motion.div>
+
       {/* Quick Modes */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <h2 className="font-display font-semibold text-foreground mb-4">{t("dashboard.quickModes")}</h2>
