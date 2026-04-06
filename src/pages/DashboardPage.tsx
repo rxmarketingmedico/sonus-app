@@ -11,9 +11,8 @@ import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode, type SessionRecord }
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { Moon, Wind, Target, Play, Flame, Brain, Zap, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import PaywallModal from "@/components/PaywallModal";
 
-const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
+
 
 const DashboardPage = () => {
   const { t } = useLanguage();
