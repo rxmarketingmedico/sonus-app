@@ -9,7 +9,7 @@ import waveBanner from "@/assets/wave-banner.jpg";
 
 // Lazy load heavy components
 const AudioDemo = lazy(() => import("@/components/AudioDemo"));
-const AppMockupModule = lazy(() => import("@/components/AppMockup").then(m => ({ default: () => null, ...m })));
+
 
 // Lazy wrappers
 const LazySessionMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.SessionMockup })));
