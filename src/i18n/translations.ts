@@ -511,6 +511,14 @@ export const translations = {
     "sales.final.cta": "Create my free account",
 
     "sales.youArePro": "You're a Pro subscriber!",
+
+    // Paywall
+    "paywall.title": "You've reached today's limit",
+    "paywall.desc": "Free users can do up to 2 sessions per day. Unlock unlimited sessions with Sonus Pro.",
+    "paywall.cta": "Start 7-day free trial",
+    "paywall.guarantee": "7-day guarantee. Cancel anytime.",
+    "paywall.banner": "You've used your 2 free sessions today.",
+    "paywall.bannerCta": "Upgrade",
   },
 } as const;
 
