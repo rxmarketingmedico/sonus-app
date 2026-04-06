@@ -535,7 +535,7 @@ export const translations = {
     "sales.testimonials.desc": "Thousands of people have already transformed their sleep and well-being with Sonus.",
     "sales.test1": "I can finally fall asleep in under 15 minutes. Sonus changed my life.",
     "sales.test2": "I use it every night before bed. My anxiety has decreased dramatically.",
-    "sales.test3": "The combination of guided breathing + binaural sounds is incredible. Highly recommend.",
+    "sales.test3": "The combination of guided breathing + sound therapy is incredible. Highly recommend.",
 
     "sales.pricing.title": "Invest in your well-being",
     "sales.pricing.desc": "Choose the plan that's right for you.",
