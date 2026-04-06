@@ -265,7 +265,7 @@ const LandingPage = () => {
             className="flex-1 flex justify-center relative"
           >
             <div className="relative scale-110 md:scale-125 lg:scale-[1.4]">
-              <SessionMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazySessionMockup /></Suspense>
             </div>
           </motion.div>
         </div>
