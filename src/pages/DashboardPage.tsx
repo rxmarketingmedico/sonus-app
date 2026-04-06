@@ -12,10 +12,26 @@ import { Button } from "@/components/ui/button";
 
 const DashboardPage = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const profile = getProfile();
-  const sessions = getSessions();
+  const localSessions = getSessions();
   const streak = getStreak();
+
+  const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
+
+  useEffect(() => {
+    if (!user) return;
+    getSessionsFromSupabase(user.id).then((cloudSessions) => {
+      const localIds = new Set(localSessions.map((s) => s.id));
+      const merged = [...localSessions];
+      cloudSessions.forEach((cs) => {
+        if (!localIds.has(cs.id)) merged.push(cs);
+      });
+      merged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setSessions(merged);
+    });
+  }, [user]);
 
   const modeFromProfile: SessionMode = profile ? GOAL_TO_MODE[profile.goal] : "calm";
 
