@@ -18,6 +18,7 @@ import PlansPage from "./pages/PlansPage";
 import ProfilePage from "./pages/ProfilePage";
 import HistoryPage from "./pages/HistoryPage";
 import SleepLogPage from "./pages/SleepLogPage";
+import InsightsPage from "./pages/InsightsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
