@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Moon, Clock, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import PaywallModal from "@/components/PaywallModal";
+
 
 const emojis = ["😞", "😕", "😐", "🙂", "😊"];
 
