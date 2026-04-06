@@ -437,7 +437,7 @@ const LandingPage = () => {
 
             {/* Dashboard */}
             <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
-              <DashboardMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazyDashboardMockup /></Suspense>
               <div className="text-center mt-4">
                 <h3 className="font-display font-semibold text-foreground">{features[4].title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{features[4].desc}</p>
