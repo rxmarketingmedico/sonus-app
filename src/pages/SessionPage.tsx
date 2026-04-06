@@ -126,15 +126,24 @@ const SessionPage = () => {
     { value: "ocean", label: t("session.ocean") },
   ];
 
-  // Flow: Preparation → MoodCheckIn → Playing
-  if (!showMoodCheckIn && !isPlaying) {
+  // Flow: Preparation → Breathwork → MoodCheckIn → Playing
+  if (!showBreathwork && !showMoodCheckIn && !isPlaying) {
     return (
       <SessionPreparation
-        onReady={() => setShowMoodCheckIn(true)}
+        onReady={() => setShowBreathwork(true)}
         modeName={mode}
         frequencyLabel={freq.label}
         beatHz={freq.beat}
         durationMin={Math.round(targetDuration / 60)}
+      />
+    );
+  }
+
+  if (showBreathwork && !showMoodCheckIn && !isPlaying) {
+    return (
+      <BreathworkGuide
+        onComplete={() => { setShowBreathwork(false); setShowMoodCheckIn(true); }}
+        onSkip={() => { setShowBreathwork(false); setShowMoodCheckIn(true); }}
       />
     );
   }
