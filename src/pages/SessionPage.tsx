@@ -11,6 +11,7 @@ import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
 import ReactiveWaves from "@/components/ReactiveWaves";
 import SessionPreparation from "@/components/SessionPreparation";
 import MoodCheckIn from "@/components/MoodCheckIn";
+import BreathworkGuide from "@/components/BreathworkGuide";
 
 const SessionPage = () => {
   const { t } = useLanguage();
@@ -22,6 +23,7 @@ const SessionPage = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showBreathwork, setShowBreathwork] = useState(false);
   const [showMoodCheckIn, setShowMoodCheckIn] = useState(false);
   const [moodPre, setMoodPre] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
@@ -124,15 +126,24 @@ const SessionPage = () => {
     { value: "ocean", label: t("session.ocean") },
   ];
 
-  // Flow: Preparation → MoodCheckIn → Playing
-  if (!showMoodCheckIn && !isPlaying) {
+  // Flow: Preparation → Breathwork → MoodCheckIn → Playing
+  if (!showBreathwork && !showMoodCheckIn && !isPlaying) {
     return (
       <SessionPreparation
-        onReady={() => setShowMoodCheckIn(true)}
+        onReady={() => setShowBreathwork(true)}
         modeName={mode}
         frequencyLabel={freq.label}
         beatHz={freq.beat}
         durationMin={Math.round(targetDuration / 60)}
+      />
+    );
+  }
+
+  if (showBreathwork && !showMoodCheckIn && !isPlaying) {
+    return (
+      <BreathworkGuide
+        onComplete={() => { setShowBreathwork(false); setShowMoodCheckIn(true); }}
+        onSkip={() => { setShowBreathwork(false); setShowMoodCheckIn(true); }}
       />
     );
   }

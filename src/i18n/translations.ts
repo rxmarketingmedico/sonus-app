@@ -106,6 +106,15 @@ export const translations = {
     "mood.pre.continue": "Continuar",
     "mood.pre.skip": "Pular",
 
+    // Breathwork
+    "breathwork.before": "Antes da sua sessão",
+    "breathwork.title": "Reserve um momento para respirar",
+    "breathwork.inhale": "Inspire...",
+    "breathwork.hold": "Segure...",
+    "breathwork.exhale": "Expire...",
+    "breathwork.cycle": "Ciclo",
+    "breathwork.skip": "Pular respiração",
+
     // Feedback
     "feedback.title": "Como você se sente agora?",
     "feedback.subtitle": "Sua resposta nos ajuda a personalizar futuras sessões",
@@ -258,6 +267,15 @@ export const translations = {
     "mood.pre.subtitle": "We'll compare this to how you feel after the session.",
     "mood.pre.continue": "Continue",
     "mood.pre.skip": "Skip",
+
+    // Breathwork
+    "breathwork.before": "Before your session",
+    "breathwork.title": "Take a moment to breathe",
+    "breathwork.inhale": "Breathe in...",
+    "breathwork.hold": "Hold...",
+    "breathwork.exhale": "Breathe out...",
+    "breathwork.cycle": "Cycle",
+    "breathwork.skip": "Skip breathwork",
 
     // Feedback
     "feedback.title": "How do you feel now?",
