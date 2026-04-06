@@ -150,6 +150,18 @@ export const translations = {
     "profile.stress": "Estresse",
     "profile.duration": "Duração",
 
+    // Auth
+    "auth.subtitle": "Faça login para acessar suas sessões",
+    "auth.signIn": "Entrar",
+    "auth.signUp": "Cadastrar",
+    "auth.email": "Email",
+    "auth.password": "Senha",
+    "auth.google": "Continuar com Google",
+    "auth.or": "ou",
+    "auth.checkEmail": "Verifique seu email para confirmar o cadastro",
+    "auth.error": "Erro na autenticação",
+    "auth.signOut": "Sair",
+
     // General
     "general.loading": "Carregando...",
     "general.minutes": "min",
