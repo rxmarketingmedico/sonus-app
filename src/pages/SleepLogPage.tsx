@@ -53,12 +53,8 @@ const SleepLogPage = () => {
   const [logs, setLogs] = useState<SleepLogEntry[]>([]);
 
   useEffect(() => {
-    if (isFree) {
-      setShowPaywall(true);
-      return;
-    }
     loadLogs();
-  }, [isFree]);
+  }, []);
 
   const loadLogs = async () => {
     const local = getLocalSleepLogs();
