@@ -52,9 +52,59 @@ export const SessionMockup = () => {
           <p className="text-2xl font-display font-bold text-gradient">{frequency.toFixed(1)} Hz</p>
         </div>
 
-        {/* Animated waveform */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="flex items-center gap-[2px]">
+        {/* Animated sound waves */}
+        <div className="flex-1 flex items-center justify-center relative overflow-hidden">
+          {/* Circular pulse rings */}
+          {playing && [0, 1, 2].map((i) => (
+            <motion.div
+              key={`ring-${i}`}
+              className="absolute w-20 h-20 rounded-full border border-sonus-purple/30"
+              animate={{
+                scale: [1, 3.5],
+                opacity: [0.6, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: i * 1,
+                ease: "easeOut",
+              }}
+            />
+          ))}
+
+          {/* SVG sine waves */}
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 280 200" preserveAspectRatio="none">
+            {[
+              { amplitude: 18, freq: 0.04, speed: 2, color: "rgba(139,92,246,0.5)", strokeWidth: 2 },
+              { amplitude: 12, freq: 0.06, speed: 3, color: "rgba(34,211,238,0.4)", strokeWidth: 1.5 },
+              { amplitude: 25, freq: 0.03, speed: 1.5, color: "rgba(139,92,246,0.25)", strokeWidth: 2.5 },
+            ].map((wave, wi) => (
+              <motion.path
+                key={wi}
+                fill="none"
+                stroke={wave.color}
+                strokeWidth={wave.strokeWidth}
+                strokeLinecap="round"
+                d={`M 0 100 ${Array.from({ length: 29 }).map((_, x) => {
+                  const px = x * 10;
+                  const py = 100 + wave.amplitude * Math.sin(px * wave.freq);
+                  return `L ${px} ${py}`;
+                }).join(" ")}`}
+                animate={playing ? {
+                  x: [-20, 20, -20],
+                  opacity: [0.6, 1, 0.6],
+                } : { x: 0, opacity: 0.3 }}
+                transition={{
+                  duration: wave.speed,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </svg>
+
+          {/* Central bar visualizer */}
+          <div className="flex items-center gap-[2px] z-10">
             {Array.from({ length: 24 }).map((_, i) => (
               <motion.div
                 key={i}
