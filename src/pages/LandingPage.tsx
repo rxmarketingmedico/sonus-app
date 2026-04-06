@@ -251,9 +251,9 @@ const LandingPage = () => {
               <img
                 src={heroMockup}
                 alt="Sonus App"
-                className="relative w-64 md:w-80 drop-shadow-2xl"
-                width={800}
-                height={1000}
+                className="relative w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl"
+                width={848}
+                height={1264}
               />
             </div>
           </motion.div>
