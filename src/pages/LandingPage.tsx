@@ -446,7 +446,7 @@ const LandingPage = () => {
 
             {/* Sleep */}
             <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
-              <SleepMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazySleepMockup /></Suspense>
               <div className="text-center mt-4">
                 <h3 className="font-display font-semibold text-foreground">{features[2].title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{features[2].desc}</p>
