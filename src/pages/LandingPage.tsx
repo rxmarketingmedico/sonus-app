@@ -341,6 +341,24 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* ===== TRY IT NOW - AUDIO DEMO ===== */}
+      <section className="py-24 px-4 relative">
+        <Particles />
+        <div className="max-w-4xl mx-auto">
+          <motion.h2 {...fadeUp} className="font-display text-3xl md:text-5xl font-bold text-gradient mb-4 text-center">
+            {t("sales.demo.title")}
+          </motion.h2>
+          <motion.p {...fadeUp} className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto text-center">
+            {t("sales.demo.desc")}
+          </motion.p>
+
+          <AudioDemo
+            ctaText={t("sales.hero.cta")}
+            onCta={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+          />
+        </div>
+      </section>
+
       {/* ===== HOW IT WORKS ===== */}
       <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
