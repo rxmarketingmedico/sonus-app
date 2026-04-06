@@ -144,7 +144,6 @@ const SessionPage = () => {
       <SessionPreparation
         onReady={() => {
           setShowBreathwork(true);
-          }
         }}
         modeName={mode}
         frequencyLabel={freq.label}
