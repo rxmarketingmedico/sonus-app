@@ -1,10 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { Home, LayoutDashboard, Music, User, CreditCard, Clock, Moon } from "lucide-react";
+import { LayoutDashboard, Music, User, CreditCard, Clock, Moon } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = [
-  { path: "/", icon: Home, key: "nav.home" as const },
   { path: "/dashboard", icon: LayoutDashboard, key: "nav.dashboard" as const },
   { path: "/session", icon: Music, key: "nav.session" as const },
   { path: "/sleep", icon: Moon, key: "nav.sleep" as const },
@@ -19,9 +18,9 @@ const AppNavigation = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
-  // Hide nav on session/feedback/onboarding
-  const hiddenPaths = ["/session", "/feedback", "/onboarding"];
-  if (hiddenPaths.some((p) => location.pathname.startsWith(p))) return null;
+  // Hide nav on landing, auth, session, feedback, onboarding
+  const hiddenPaths = ["/session", "/feedback", "/onboarding", "/auth"];
+  if (location.pathname === "/" || hiddenPaths.some((p) => location.pathname.startsWith(p))) return null;
 
   if (isMobile) {
     return (

@@ -86,6 +86,20 @@ const AnimatedRoutes = () => {
   );
 };
 
+const AppLayout = () => {
+  const location = useLocation();
+  const isLandingOrAuth = location.pathname === "/" || location.pathname === "/auth";
+
+  return (
+    <>
+      <AppNavigation />
+      <div className={isLandingOrAuth ? "" : "md:ml-16"}>
+        <AnimatedRoutes />
+      </div>
+    </>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
@@ -94,10 +108,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <AppNavigation />
-            <div className="md:ml-16">
-              <AnimatedRoutes />
-            </div>
+            <AppLayout />
           </BrowserRouter>
         </TooltipProvider>
       </LanguageProvider>
