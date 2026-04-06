@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { Home, LayoutDashboard, Music, User, CreditCard, Clock, Moon } from "lucide-react";
+import { LayoutDashboard, Music, User, CreditCard, Clock, Moon } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = [
