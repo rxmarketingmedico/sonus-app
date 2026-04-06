@@ -19,9 +19,9 @@ const AppNavigation = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
-  // Hide nav on session/feedback/onboarding
-  const hiddenPaths = ["/session", "/feedback", "/onboarding"];
-  if (hiddenPaths.some((p) => location.pathname.startsWith(p))) return null;
+  // Hide nav on landing, auth, session, feedback, onboarding
+  const hiddenPaths = ["/session", "/feedback", "/onboarding", "/auth"];
+  if (location.pathname === "/" || hiddenPaths.some((p) => location.pathname.startsWith(p))) return null;
 
   if (isMobile) {
     return (
