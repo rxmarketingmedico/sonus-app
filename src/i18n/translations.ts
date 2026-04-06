@@ -171,6 +171,14 @@ export const translations = {
     "general.minutes": "min",
     "general.hours": "h",
 
+    // Insights
+    "nav.insights": "Insights",
+    "insights.title": "Insights da Semana",
+    "insights.desc": "Análise personalizada baseada nos seus últimos 7 dias de sessões e sono.",
+    "insights.refresh": "Atualizar",
+    "insights.error": "Erro ao gerar insights. Tente novamente.",
+    "insights.empty": "Complete algumas sessões para gerar seus insights semanais.",
+
     // Sleep Log
     "nav.sleep": "Sono",
     "sleep.title": "Registro de Sono",
