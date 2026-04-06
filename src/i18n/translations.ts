@@ -106,6 +106,15 @@ export const translations = {
     "mood.pre.continue": "Continuar",
     "mood.pre.skip": "Pular",
 
+    // Breathwork
+    "breathwork.before": "Antes da sua sessão",
+    "breathwork.title": "Reserve um momento para respirar",
+    "breathwork.inhale": "Inspire...",
+    "breathwork.hold": "Segure...",
+    "breathwork.exhale": "Expire...",
+    "breathwork.cycle": "Ciclo",
+    "breathwork.skip": "Pular respiração",
+
     // Feedback
     "feedback.title": "Como você se sente agora?",
     "feedback.subtitle": "Sua resposta nos ajuda a personalizar futuras sessões",
