@@ -27,7 +27,7 @@ const ProfilePage = () => {
         {/* Email */}
         {user && (
           <div className="bg-card/50 border border-border/50 rounded-xl p-4">
-            <p className="text-xs text-muted-foreground mb-1">{t("auth.email")}</p>
+            <p className="text-xs text-muted-foreground mb-1">{t("auth.emailPlaceholder")}</p>
             <p className="text-sm text-foreground">{user.email}</p>
           </div>
         )}
