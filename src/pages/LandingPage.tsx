@@ -191,7 +191,7 @@ const LandingPage = () => {
           className="rounded-full border-sonus-purple/30 bg-card/80 backdrop-blur-sm hover:bg-sonus-purple/10 font-display text-sm px-5"
           onClick={() => navigate("/auth")}
         >
-          {t("auth.sendCode").split(" ")[0]}
+          Login
         </Button>
       </motion.div>
 
