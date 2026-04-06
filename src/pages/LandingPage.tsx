@@ -632,7 +632,7 @@ const LandingPage = () => {
             <Button
               size="lg"
               className="gradient-primary text-primary-foreground font-display font-semibold text-lg px-10 py-6 rounded-full glow-purple"
-              onClick={() => navigate("/auth")}
+              onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
             >
               {t("sales.final.cta")}
             </Button>

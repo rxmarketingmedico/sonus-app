@@ -556,7 +556,7 @@ export const translations = {
 
     "sales.final.title": "Start sleeping better today",
     "sales.final.desc": "Join thousands of people who have transformed their sleep and well-being with Sonus.",
-    "sales.final.cta": "Create my free account",
+    "sales.final.cta": "Subscribe now",
 
     "sales.youArePro": "You're a Pro subscriber!",
 
