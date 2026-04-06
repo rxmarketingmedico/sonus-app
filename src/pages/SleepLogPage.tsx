@@ -43,8 +43,8 @@ const calcHours = (bedtime: string, waketime: string): number => {
 const SleepLogPage = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
-  const { isFree } = useUserPlan();
-  const [showPaywall, setShowPaywall] = useState(false);
+
+
   const [bedtime, setBedtime] = useState("23:00");
   const [waketime, setWaketime] = useState("07:00");
   const [quality, setQuality] = useState<number | null>(null);
