@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
 import ReactiveWaves from "@/components/ReactiveWaves";
 import SessionPreparation from "@/components/SessionPreparation";
+import MoodCheckIn from "@/components/MoodCheckIn";
 
 const SessionPage = () => {
   const { t } = useLanguage();
@@ -17,10 +18,12 @@ const SessionPage = () => {
   const [searchParams] = useSearchParams();
   const mode = (searchParams.get("mode") || "calm") as SessionMode;
   const profile = getProfile();
-  const targetDuration = (profile?.duration || 10) * 60; // seconds
+  const targetDuration = (profile?.duration || 10) * 60;
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showMoodCheckIn, setShowMoodCheckIn] = useState(false);
+  const [moodPre, setMoodPre] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [volume, setVolume] = useState(50);
   const [ambientVol, setAmbientVol] = useState(30);
@@ -69,24 +72,22 @@ const SessionPage = () => {
       targetDuration,
       frequency: freq.beat,
       date: new Date().toISOString(),
+      mood_pre: moodPre ?? undefined,
     });
 
     navigate(`/feedback?sessionId=${sessionId}`);
-  }, [elapsed, freq, mode, navigate, sessionId, targetDuration]);
+  }, [elapsed, freq, mode, navigate, sessionId, targetDuration, moodPre]);
 
-  // Auto-stop when target reached
   useEffect(() => {
     if (elapsed >= targetDuration && isPlaying) {
       stopSession();
     }
   }, [elapsed, targetDuration, isPlaying, stopSession]);
 
-  // Volume changes
   useEffect(() => {
     engineRef.current?.setVolume(volume / 100);
   }, [volume]);
 
-  // Ambient changes
   useEffect(() => {
     if (!engineRef.current) return;
     if (ambient === "none") {
@@ -96,7 +97,6 @@ const SessionPage = () => {
     }
   }, [ambient, ambientVol]);
 
-  // Cleanup
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -124,10 +124,11 @@ const SessionPage = () => {
     { value: "ocean", label: t("session.ocean") },
   ];
 
-  if (!isPlaying) {
+  // Flow: Preparation → MoodCheckIn → Playing
+  if (!showMoodCheckIn && !isPlaying) {
     return (
       <SessionPreparation
-        onReady={startSession}
+        onReady={() => setShowMoodCheckIn(true)}
         modeName={mode}
         frequencyLabel={freq.label}
         beatHz={freq.beat}
@@ -136,18 +137,31 @@ const SessionPage = () => {
     );
   }
 
+  if (showMoodCheckIn && !isPlaying) {
+    return (
+      <MoodCheckIn
+        onSelect={(mood) => {
+          setMoodPre(mood);
+          setShowMoodCheckIn(false);
+          startSession();
+        }}
+        onSkip={() => {
+          setShowMoodCheckIn(false);
+          startSession();
+        }}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 relative">
-      {/* Reactive wave visualization */}
       <ReactiveWaves engine={engineRef.current} isPlaying={isPlaying} isPaused={isPaused} />
 
-      {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sonus-purple/5 blur-3xl animate-pulse-glow" />
       </div>
 
       <div className="z-10 flex flex-col items-center">
-        {/* Circular progress timer */}
         <div className="relative mb-8">
           <svg width="180" height="180" className="transform -rotate-90">
             <circle cx="90" cy="90" r="70" fill="none" stroke="hsl(230, 20%, 18%)" strokeWidth="4" />
@@ -171,7 +185,6 @@ const SessionPage = () => {
             </defs>
           </svg>
 
-          {/* Breathing sphere inside timer */}
           {showBreathing && (
             <motion.div
               className="absolute inset-0 m-auto w-20 h-20 rounded-full gradient-primary opacity-40"
@@ -187,13 +200,11 @@ const SessionPage = () => {
           </div>
         </div>
 
-        {/* Session info */}
         <p className="text-sm text-muted-foreground mb-1">{t("session.title")}</p>
         <p className="text-base font-display font-semibold text-foreground mb-6">
           {t(`mode.${mode}` as any)}
         </p>
 
-        {/* Controls */}
         <div className="flex gap-4 mb-8">
           <Button onClick={togglePause} variant="outline" size="icon" className="w-14 h-14 rounded-full border-border/50">
             {isPaused ? <Play className="w-6 h-6" /> : <Pause className="w-6 h-6" />}
@@ -206,14 +217,12 @@ const SessionPage = () => {
           </Button>
         </div>
 
-        {/* Volume */}
         <div className="w-64 space-y-4">
           <div>
             <label className="text-xs text-muted-foreground mb-1 block">{t("session.volume")}: {volume}%</label>
             <Slider value={[volume]} onValueChange={(v) => setVolume(v[0])} max={100} step={1} />
           </div>
 
-          {/* Ambient */}
           <div>
             <label className="text-xs text-muted-foreground mb-2 block">{t("session.ambient")}</label>
             <div className="flex gap-2 flex-wrap">
@@ -236,7 +245,6 @@ const SessionPage = () => {
             )}
           </div>
 
-          {/* Breathing toggle */}
           <button
             onClick={() => setShowBreathing(!showBreathing)}
             className={`text-xs px-3 py-1.5 rounded-full border transition-all ${

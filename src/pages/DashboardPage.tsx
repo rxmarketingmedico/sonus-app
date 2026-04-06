@@ -52,7 +52,7 @@ const DashboardPage = () => {
     d.setDate(d.getDate() - (6 - i));
     const dateStr = d.toISOString().split("T")[0];
     const daySessions = sessions.filter((s) => s.date.startsWith(dateStr));
-    const feedbacks = daySessions.filter((s) => s.feedback).map((s) => s.feedback!);
+    const feedbacks = daySessions.filter((s) => s.mood_post ?? s.feedback).map((s) => (s.mood_post ?? s.feedback)!);
     const avg = feedbacks.length ? feedbacks.reduce((a, b) => a + b, 0) / feedbacks.length : 0;
     return {
       day: d.toLocaleDateString(undefined, { weekday: "short" }),
