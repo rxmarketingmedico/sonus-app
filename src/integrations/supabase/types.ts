@@ -14,7 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          duration: number | null
+          goal: string | null
+          id: string
+          onboarding_complete: boolean | null
+          period: string | null
+          plan: string | null
+          stress_level: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          duration?: number | null
+          goal?: string | null
+          id: string
+          onboarding_complete?: boolean | null
+          period?: string | null
+          plan?: string | null
+          stress_level?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          duration?: number | null
+          goal?: string | null
+          id?: string
+          onboarding_complete?: boolean | null
+          period?: string | null
+          plan?: string | null
+          stress_level?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sessions: {
+        Row: {
+          ambient_sound: string | null
+          created_at: string
+          duration: number
+          frequency: number
+          id: string
+          mode: string
+          mood_post: number | null
+          mood_pre: number | null
+          target_duration: number
+          user_id: string
+        }
+        Insert: {
+          ambient_sound?: string | null
+          created_at?: string
+          duration: number
+          frequency: number
+          id?: string
+          mode: string
+          mood_post?: number | null
+          mood_pre?: number | null
+          target_duration: number
+          user_id: string
+        }
+        Update: {
+          ambient_sound?: string | null
+          created_at?: string
+          duration?: number
+          frequency?: number
+          id?: string
+          mode?: string
+          mood_post?: number | null
+          mood_pre?: number | null
+          target_duration?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      sleep_logs: {
+        Row: {
+          bedtime: string
+          created_at: string
+          id: string
+          quality: number
+          user_id: string
+          waketime: string
+        }
+        Insert: {
+          bedtime: string
+          created_at?: string
+          id?: string
+          quality: number
+          user_id: string
+          waketime: string
+        }
+        Update: {
+          bedtime?: string
+          created_at?: string
+          id?: string
+          quality?: number
+          user_id?: string
+          waketime?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import { updateSessionMoodPost } from "@/lib/storage";
+import { updateMoodPostInSupabase } from "@/services/supabase";
 import { Button } from "@/components/ui/button";
 
 const emojis = ["😞", "😕", "😐", "🙂", "😊"];
 
 const FeedbackPage = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("sessionId") || "";
@@ -16,7 +19,11 @@ const FeedbackPage = () => {
 
   const handleSave = () => {
     if (selected !== null) {
-      updateSessionMoodPost(sessionId, selected + 1);
+      const mood = selected + 1;
+      updateSessionMoodPost(sessionId, mood);
+      if (user) {
+        updateMoodPostInSupabase(sessionId, mood);
+      }
     }
     navigate("/dashboard");
   };

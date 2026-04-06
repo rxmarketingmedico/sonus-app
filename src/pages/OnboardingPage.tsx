@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { saveProfile } from "@/lib/storage";
+import { saveProfileToSupabase } from "@/services/supabase";
 import type { UserProfile } from "@/lib/types";
 import type { Goal, Period, StressLevel, SessionDuration } from "@/lib/types";
 import { Progress } from "@/components/ui/progress";
@@ -10,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 const OnboardingPage = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [goal, setGoal] = useState<Goal | "">("");
@@ -77,6 +80,9 @@ const OnboardingPage = () => {
       onboardingComplete: true,
     };
     saveProfile(profile);
+    if (user) {
+      saveProfileToSupabase(profile, user.id);
+    }
     navigate("/dashboard");
   };
 

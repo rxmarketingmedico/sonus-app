@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { BinauralAudioEngine } from "@/lib/audioEngine";
 import { FREQUENCY_PRESETS, type SessionMode, type AmbientSound } from "@/lib/types";
 import { getProfile, saveSession } from "@/lib/storage";
+import { useAuth } from "@/contexts/AuthContext";
+import { saveSessionToSupabase } from "@/services/supabase";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
@@ -16,6 +18,7 @@ import BreathworkGuide from "@/components/BreathworkGuide";
 const SessionPage = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const mode = (searchParams.get("mode") || "calm") as SessionMode;
   const profile = getProfile();
@@ -67,7 +70,7 @@ const SessionPage = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (engineRef.current) await engineRef.current.stop();
 
-    saveSession({
+    const sessionData: import("@/lib/types").SessionRecord = {
       id: sessionId,
       mode,
       duration: elapsed,
@@ -75,10 +78,15 @@ const SessionPage = () => {
       frequency: freq.beat,
       date: new Date().toISOString(),
       mood_pre: moodPre ?? undefined,
-    });
+    };
+
+    saveSession(sessionData);
+    if (user) {
+      saveSessionToSupabase(sessionData, user.id);
+    }
 
     navigate(`/feedback?sessionId=${sessionId}`);
-  }, [elapsed, freq, mode, navigate, sessionId, targetDuration, moodPre]);
+  }, [elapsed, freq, mode, navigate, sessionId, targetDuration, moodPre, user]);
 
   useEffect(() => {
     if (elapsed >= targetDuration && isPlaying) {
