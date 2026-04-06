@@ -39,7 +39,7 @@ export const FREQUENCY_PRESETS: Record<SessionMode, FrequencyConfig> = {
 };
 
 export const GOAL_TO_MODE: Record<Goal, SessionMode> = {
-  tension: "calm",
+  tension: "alpha",
   calm: "calm",
   sleep: "sleep",
   focus: "focus",
