@@ -31,11 +31,11 @@ export interface FrequencyConfig {
 }
 
 export const FREQUENCY_PRESETS: Record<SessionMode, FrequencyConfig> = {
-  sleep: { carrier: 180, beat: 2, label: "Delta", mode: "sleep" },
-  calm: { carrier: 200, beat: 6, label: "Theta", mode: "calm" },
-  alpha: { carrier: 210, beat: 10, label: "Alpha", mode: "alpha" },
-  focus: { carrier: 220, beat: 16, label: "Beta", mode: "focus" },
-  custom: { carrier: 200, beat: 10, label: "Alpha", mode: "custom" },
+  sleep: { carrier: 180, beat: 2, label: "Sleep better", mode: "sleep" },
+  calm: { carrier: 200, beat: 6, label: "Feel calmer", mode: "calm" },
+  alpha: { carrier: 210, beat: 10, label: "Relax deeply", mode: "alpha" },
+  focus: { carrier: 220, beat: 16, label: "Focus sharp", mode: "focus" },
+  custom: { carrier: 200, beat: 10, label: "Relax deeply", mode: "custom" },
 };
 
 export const GOAL_TO_MODE: Record<Goal, SessionMode> = {
