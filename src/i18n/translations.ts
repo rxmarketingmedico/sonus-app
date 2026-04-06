@@ -487,6 +487,9 @@ export const translations = {
     "sales.problem2": "My mind won't stop racing",
     "sales.problem3": "I wake up tired even after sleeping",
 
+    "sales.demo.title": "Try it now",
+    "sales.demo.desc": "Put on your headphones and feel the effect of sound therapy in real time. 30 free seconds.",
+
     "sales.solution.title": "How Sonus works",
     "sales.solution.desc": "Three simple steps to transform your sleep and mental well-being.",
     "sales.step1.title": "Personalize",
