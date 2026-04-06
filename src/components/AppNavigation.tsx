@@ -4,7 +4,6 @@ import { Home, LayoutDashboard, Music, User, CreditCard, Clock, Moon } from "luc
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = [
-  { path: "/", icon: Home, key: "nav.home" as const },
   { path: "/dashboard", icon: LayoutDashboard, key: "nav.dashboard" as const },
   { path: "/session", icon: Music, key: "nav.session" as const },
   { path: "/sleep", icon: Moon, key: "nav.sleep" as const },

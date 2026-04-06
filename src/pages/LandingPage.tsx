@@ -380,55 +380,50 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* ===== APP PREVIEW + SLEEP ===== */}
+      {/* ===== APP IN ACTION ===== */}
       <section className="py-24 px-4 bg-card/30 overflow-hidden">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-          <motion.div
-            {...fadeUp}
-            className="flex-1 relative"
-          >
-            <motion.div
-              className="absolute -inset-12 rounded-full bg-sonus-blue/10 blur-3xl"
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 5, repeat: Infinity }}
-            />
-            <img
-              src={sleepPerson}
-              alt="Peaceful sleep"
-              className="relative w-full max-w-lg mx-auto rounded-2xl shadow-2xl"
-              loading="lazy"
-              width={1200}
-              height={896}
-            />
-          </motion.div>
+        <div className="max-w-6xl mx-auto">
+          <motion.h2 {...fadeUp} className="font-display text-3xl md:text-5xl font-bold text-center text-foreground mb-4">
+            {t("sales.features.title")}
+          </motion.h2>
+          <motion.p {...fadeUp} className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
+            {t("sales.features.desc")}
+          </motion.p>
 
-          <motion.div {...fadeUp} className="flex-1 space-y-6">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              {t("sales.features.title")}
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              {t("sales.features.desc")}
-            </p>
-            <div className="space-y-4">
-              {features.slice(0, 4).map((f, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-start gap-4 group"
-                >
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${f.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
-                    <f.icon className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-semibold text-foreground text-sm">{f.title}</h4>
-                    <p className="text-sm text-muted-foreground">{f.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          {/* Three mockups side by side */}
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6"
+          >
+            {/* Session */}
+            <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
+              <SessionMockup />
+              <div className="text-center mt-4">
+                <h3 className="font-display font-semibold text-foreground">{features[0].title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{features[0].desc}</p>
+              </div>
+            </motion.div>
+
+            {/* Dashboard */}
+            <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
+              <DashboardMockup />
+              <div className="text-center mt-4">
+                <h3 className="font-display font-semibold text-foreground">{features[4].title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{features[4].desc}</p>
+              </div>
+            </motion.div>
+
+            {/* Sleep */}
+            <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
+              <SleepMockup />
+              <div className="text-center mt-4">
+                <h3 className="font-display font-semibold text-foreground">{features[2].title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{features[2].desc}</p>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
