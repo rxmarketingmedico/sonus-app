@@ -244,7 +244,7 @@ export const translations = {
     "sales.pricing.annual": "Anual",
     "sales.pricing.mo": "mês",
     "sales.pricing.yr": "ano",
-    "sales.pricing.save": "Economize 69% — equivale a $2.50/mês",
+    "sales.pricing.save": "Economize 69% — equivale a US$ 2.50/mês",
     "sales.pricing.bestValue": "Melhor valor",
     "sales.pricing.cta": "Assinar agora",
     "sales.pricing.guarantee": "Cancele quando quiser.",
