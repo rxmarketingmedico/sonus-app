@@ -2,12 +2,15 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { LanguageProvider } from "@/i18n/LanguageContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import AppNavigation from "@/components/AppNavigation";
 import LandingPage from "./pages/LandingPage";
 import OnboardingPage from "./pages/OnboardingPage";
+import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import SessionPage from "./pages/SessionPage";
 import FeedbackPage from "./pages/FeedbackPage";
@@ -38,20 +41,43 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-sonus-purple" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  return <>{children}</>;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        {/* Public routes */}
         <Route path="/" element={<PageWrapper><LandingPage /></PageWrapper>} />
         <Route path="/onboarding" element={<PageWrapper><OnboardingPage /></PageWrapper>} />
-        <Route path="/dashboard" element={<PageWrapper><DashboardPage /></PageWrapper>} />
-        <Route path="/session" element={<PageWrapper><SessionPage /></PageWrapper>} />
-        <Route path="/feedback" element={<PageWrapper><FeedbackPage /></PageWrapper>} />
-        <Route path="/history" element={<PageWrapper><HistoryPage /></PageWrapper>} />
-        <Route path="/plans" element={<PageWrapper><PlansPage /></PageWrapper>} />
-        <Route path="/profile" element={<PageWrapper><ProfilePage /></PageWrapper>} />
+        <Route path="/auth" element={<PageWrapper><AuthPage /></PageWrapper>} />
+
+        {/* Protected routes */}
+        <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><DashboardPage /></PageWrapper></ProtectedRoute>} />
+        <Route path="/session" element={<ProtectedRoute><PageWrapper><SessionPage /></PageWrapper></ProtectedRoute>} />
+        <Route path="/feedback" element={<ProtectedRoute><PageWrapper><FeedbackPage /></PageWrapper></ProtectedRoute>} />
+        <Route path="/history" element={<ProtectedRoute><PageWrapper><HistoryPage /></PageWrapper></ProtectedRoute>} />
+        <Route path="/plans" element={<ProtectedRoute><PageWrapper><PlansPage /></PageWrapper></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><PageWrapper><ProfilePage /></PageWrapper></ProtectedRoute>} />
+
         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
@@ -60,18 +86,20 @@ const AnimatedRoutes = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppNavigation />
-          <div className="md:ml-16">
-            <AnimatedRoutes />
-          </div>
-        </BrowserRouter>
-      </TooltipProvider>
-    </LanguageProvider>
+    <AuthProvider>
+      <LanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppNavigation />
+            <div className="md:ml-16">
+              <AnimatedRoutes />
+            </div>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LanguageProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
