@@ -430,26 +430,20 @@ export const translations = {
 
 
     // Auth
-    "auth.subtitle": "Sign in to access your sessions",
-    "auth.signIn": "Sign in",
-    "auth.signUp": "Sign up",
-    "auth.email": "Email",
-    "auth.password": "Password",
-    "auth.google": "Continue with Google",
-    "auth.or": "or",
-    "auth.checkEmail": "Check your email to confirm your account",
     "auth.error": "Authentication error",
     "auth.signOut": "Sign out",
     "auth.noPurchase": "No purchase found for this email. Please buy a plan first.",
-    "auth.accountCreated": "Account created successfully! Please sign in.",
     "auth.backToHome": "Back",
     "auth.welcomeBack": "Welcome to Sonus",
-    "auth.createAccountDesc": "Use the email from your purchase to create your account",
-    "auth.loginDesc": "Sign in with your purchase email",
-    "auth.createAccount": "Create account",
+    "auth.loginDesc": "Enter the email used in your purchase",
     "auth.purchaseRequired": "Use the same email you used for your Hotmart purchase",
     "auth.emailPlaceholder": "Purchase email",
-    "auth.loginButton": "Login",
+    "auth.sendCode": "Send access code",
+    "auth.otpSent": "Code sent! Check your email.",
+    "auth.enterOtp": "Enter the 6-digit code sent to your email",
+    "auth.otpPlaceholder": "000000",
+    "auth.verify": "Verify and sign in",
+    "auth.changeEmail": "Use a different email",
 
     // General
     "general.loading": "Loading...",
