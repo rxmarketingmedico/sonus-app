@@ -250,6 +250,14 @@ export const translations = {
     "sales.final.cta": "Criar minha conta grátis",
 
     "sales.youArePro": "Você é assinante Pro!",
+
+    // Paywall
+    "paywall.title": "Você atingiu o limite diário",
+    "paywall.desc": "Usuários gratuitos podem fazer até 2 sessões por dia. Desbloqueie sessões ilimitadas com o Sonus Pro.",
+    "paywall.cta": "Começar teste grátis de 7 dias",
+    "paywall.guarantee": "Garantia de 7 dias. Cancele quando quiser.",
+    "paywall.banner": "Você usou suas 2 sessões gratuitas de hoje.",
+    "paywall.bannerCta": "Fazer upgrade",
   },
   en: {
     // Landing
@@ -503,6 +511,14 @@ export const translations = {
     "sales.final.cta": "Create my free account",
 
     "sales.youArePro": "You're a Pro subscriber!",
+
+    // Paywall
+    "paywall.title": "You've reached today's limit",
+    "paywall.desc": "Free users can do up to 2 sessions per day. Unlock unlimited sessions with Sonus Pro.",
+    "paywall.cta": "Start 7-day free trial",
+    "paywall.guarantee": "7-day guarantee. Cancel anytime.",
+    "paywall.banner": "You've used your 2 free sessions today.",
+    "paywall.bannerCta": "Upgrade",
   },
 } as const;
 

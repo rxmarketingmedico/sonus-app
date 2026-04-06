@@ -2,23 +2,29 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useUserPlan } from "@/hooks/useUserPlan";
 import { motion } from "framer-motion";
 import { getSessions, getStreak, getProfile } from "@/lib/storage";
 import { getSessionsFromSupabase } from "@/services/supabase";
 import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode, type SessionRecord } from "@/lib/types";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
-import { Moon, Wind, Target, Play, Flame, Brain, Zap } from "lucide-react";
+import { Moon, Wind, Target, Play, Flame, Brain, Zap, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import PaywallModal from "@/components/PaywallModal";
+
+const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
 
 const DashboardPage = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
+  const { isFree, canStartSession, sessionsRemaining } = useUserPlan();
   const navigate = useNavigate();
   const profile = getProfile();
   const localSessions = getSessions();
   const streak = getStreak();
 
   const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
+  const [showPaywall, setShowPaywall] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -35,6 +41,14 @@ const DashboardPage = () => {
 
   const modeFromProfile: SessionMode = profile ? GOAL_TO_MODE[profile.goal] : "calm";
 
+  const handleStartSession = (mode: SessionMode) => {
+    if (!canStartSession()) {
+      setShowPaywall(true);
+      return;
+    }
+    navigate(`/session?mode=${mode}`);
+  };
+
   const quickModes = [
     { mode: "sleep" as SessionMode, label: t("dashboard.sleep"), desc: t("dashboard.sleep.desc"), icon: Moon, color: "from-indigo-600 to-blue-700" },
     { mode: "calm" as SessionMode, label: t("dashboard.calm"), desc: t("dashboard.calm.desc"), icon: Wind, color: "from-teal-600 to-cyan-700" },
@@ -42,7 +56,6 @@ const DashboardPage = () => {
     { mode: "focus" as SessionMode, label: t("dashboard.focus"), desc: t("dashboard.focus.desc"), icon: Target, color: "from-amber-600 to-orange-700" },
   ];
 
-  // Best frequency stat
   const getBestFrequency = () => {
     const modeScores: Record<string, { total: number; count: number }> = {};
     sessions.forEach((s) => {
@@ -65,7 +78,6 @@ const DashboardPage = () => {
     return best ? t(`mode.${best}` as any) : "—";
   };
 
-  // Weekly emotional data
   const last7Days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - (6 - i));
@@ -79,8 +91,33 @@ const DashboardPage = () => {
     };
   });
 
+  const limitReached = isFree && !canStartSession();
+
   return (
     <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-4xl mx-auto">
+      <PaywallModal open={showPaywall} onClose={() => setShowPaywall(false)} />
+
+      {/* Limit banner */}
+      {limitReached && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6 rounded-xl border border-sonus-purple/30 bg-sonus-purple/10 p-4 flex items-center justify-between gap-4 flex-wrap"
+        >
+          <div className="flex items-center gap-2 text-sm text-foreground">
+            <Crown className="w-4 h-4 text-sonus-purple" />
+            {t("paywall.banner")}
+          </div>
+          <Button
+            size="sm"
+            className="gradient-primary text-primary-foreground rounded-full text-xs"
+            onClick={() => window.open(HOTMART_MONTHLY, "_blank")}
+          >
+            {t("paywall.bannerCta")}
+          </Button>
+        </motion.div>
+      )}
+
       {/* Welcome */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
         <h1 className="font-display text-2xl font-bold text-foreground mb-2">{t("dashboard.welcome")}</h1>
@@ -102,7 +139,7 @@ const DashboardPage = () => {
       {/* Main CTA */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <Button
-          onClick={() => navigate(`/session?mode=${modeFromProfile}`)}
+          onClick={() => handleStartSession(modeFromProfile)}
           className="w-full py-6 text-lg font-display font-semibold gradient-primary text-primary-foreground border-0 rounded-2xl glow-purple mb-8"
         >
           <Play className="w-5 h-5 mr-2" />
@@ -117,7 +154,7 @@ const DashboardPage = () => {
           {quickModes.map((m) => (
             <button
               key={m.mode}
-              onClick={() => navigate(`/session?mode=${m.mode}`)}
+              onClick={() => handleStartSession(m.mode)}
               className="bg-card/50 border border-border/50 rounded-2xl p-4 text-center hover:border-sonus-purple/30 transition-all group"
             >
               <div className={`w-12 h-12 mx-auto mb-2 rounded-xl bg-gradient-to-br ${m.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>

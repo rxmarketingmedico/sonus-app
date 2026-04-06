@@ -7,6 +7,7 @@ import { FREQUENCY_PRESETS, type SessionMode, type AmbientSound } from "@/lib/ty
 import { getProfile, saveSession } from "@/lib/storage";
 import { useAuth } from "@/contexts/AuthContext";
 import { saveSessionToSupabase } from "@/services/supabase";
+import { useUserPlan } from "@/hooks/useUserPlan";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
@@ -14,11 +15,13 @@ import ReactiveWaves from "@/components/ReactiveWaves";
 import SessionPreparation from "@/components/SessionPreparation";
 import MoodCheckIn from "@/components/MoodCheckIn";
 import BreathworkGuide from "@/components/BreathworkGuide";
+import PaywallModal from "@/components/PaywallModal";
 
 const SessionPage = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { isFree, canStartSession } = useUserPlan();
   const [searchParams] = useSearchParams();
   const mode = (searchParams.get("mode") || "calm") as SessionMode;
   const profile = getProfile();
@@ -35,11 +38,19 @@ const SessionPage = () => {
   const [ambient, setAmbient] = useState<AmbientSound>("none");
   const [showBreathing, setShowBreathing] = useState(true);
   const [sessionId] = useState(() => crypto.randomUUID());
+  const [showPaywall, setShowPaywall] = useState(false);
 
   const engineRef = useRef<BinauralAudioEngine | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const freq = FREQUENCY_PRESETS[mode];
+
+  // Check session limit on mount
+  useEffect(() => {
+    if (!canStartSession()) {
+      setShowPaywall(true);
+    }
+  }, []);
 
   const startSession = useCallback(async () => {
     const engine = new BinauralAudioEngine();
@@ -127,18 +138,38 @@ const SessionPage = () => {
     }
   };
 
-  const ambientOptions: { value: AmbientSound; label: string }[] = [
+  // Filter ocean for free users
+  const allAmbientOptions: { value: AmbientSound; label: string }[] = [
     { value: "none", label: t("session.none") },
     { value: "rain", label: t("session.rain") },
     { value: "whitenoise", label: t("session.whitenoise") },
     { value: "ocean", label: t("session.ocean") },
   ];
+  const ambientOptions = isFree
+    ? allAmbientOptions.filter((a) => a.value !== "ocean")
+    : allAmbientOptions;
 
-  // Flow: Preparation → Breathwork → MoodCheckIn → Playing
+  // Flow: Paywall check → Preparation → Breathwork (Pro only) → MoodCheckIn → Playing
+  if (showPaywall) {
+    return (
+      <PaywallModal
+        open={true}
+        onClose={() => navigate("/dashboard")}
+      />
+    );
+  }
+
   if (!showBreathwork && !showMoodCheckIn && !isPlaying) {
     return (
       <SessionPreparation
-        onReady={() => setShowBreathwork(true)}
+        onReady={() => {
+          if (isFree) {
+            // Skip breathwork for free users
+            setShowMoodCheckIn(true);
+          } else {
+            setShowBreathwork(true);
+          }
+        }}
         modeName={mode}
         frequencyLabel={freq.label}
         beatHz={freq.beat}
