@@ -60,6 +60,9 @@ const PlansPage = () => {
             >
               {plan.current ? t("plans.current") : t("plans.upgrade")}
             </Button>
+            {plan.highlight && (
+              <p className="text-xs text-muted-foreground text-center mt-3">{t("plans.trialNote")}</p>
+            )}
           </motion.div>
         ))}
       </div>

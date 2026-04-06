@@ -51,8 +51,10 @@ const SessionPreparation = ({ onReady, modeName, frequencyLabel, beatHz, duratio
           className="text-center mb-8"
         >
           <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">{t("prep.title")}</p>
-          <h2 className="font-display text-xl font-semibold text-foreground capitalize">{modeName}</h2>
-          <p className="text-sm text-muted-foreground">{frequencyLabel} · {beatHz} Hz · {durationMin} {t("general.minutes")}</p>
+          <h2 className="font-display text-xl font-semibold text-foreground">
+            {t(`mode.${modeName}` as any)}
+          </h2>
+          <p className="text-sm text-muted-foreground">{durationMin} {t("general.minutes")}</p>
         </motion.div>
 
         {/* Progress dots */}

@@ -24,7 +24,8 @@ const FeedbackPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-sm">
-        <h1 className="font-display text-2xl font-bold text-foreground mb-8">{t("feedback.title")}</h1>
+        <h1 className="font-display text-2xl font-bold text-foreground mb-2">{t("feedback.title")}</h1>
+        <p className="text-sm text-muted-foreground mb-8">{t("feedback.subtitle")}</p>
 
         <div className="flex justify-center gap-4 mb-10">
           {emojis.map((emoji, i) => (
