@@ -40,6 +40,9 @@ const SessionPage = () => {
   const [sessionId] = useState(() => crypto.randomUUID());
 
   const engineRef = useRef<BinauralAudioEngine | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const freq = FREQUENCY_PRESETS[mode];
 
   const startSession = useCallback(async () => {
     const engine = new BinauralAudioEngine();
