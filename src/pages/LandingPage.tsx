@@ -158,20 +158,24 @@ const LandingPage = () => {
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((step, i) => (
+            {[
+              { num: "1", title: t("sales.step1.title"), desc: t("sales.step1.desc") },
+              { num: "2", title: t("sales.step2.title"), desc: t("sales.step2.desc") },
+              { num: "3", title: t("sales.step3.title"), desc: t("sales.step3.desc") },
+            ].map((step, i) => (
               <motion.div
-                key={step}
+                key={i}
                 {...fadeUp}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
                 className="relative"
               >
                 <div className="w-12 h-12 rounded-full gradient-primary text-primary-foreground font-display font-bold text-xl flex items-center justify-center mx-auto mb-4">
-                  {step}
+                  {step.num}
                 </div>
                 <h3 className="font-display font-semibold text-foreground text-lg mb-2">
-                  {t(`sales.step${step}.title`)}
+                  {step.title}
                 </h3>
-                <p className="text-muted-foreground">{t(`sales.step${step}.desc`)}</p>
+                <p className="text-muted-foreground">{step.desc}</p>
               </motion.div>
             ))}
           </div>
