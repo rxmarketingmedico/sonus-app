@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { BinauralAudioEngine } from "@/lib/audioEngine";
 import { FREQUENCY_PRESETS, type SessionMode, type AmbientSound } from "@/lib/types";
 import { getProfile, saveSession } from "@/lib/storage";
+import { useAuth } from "@/contexts/AuthContext";
+import { saveSessionToSupabase } from "@/services/supabase";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, Square, Maximize, Wind } from "lucide-react";

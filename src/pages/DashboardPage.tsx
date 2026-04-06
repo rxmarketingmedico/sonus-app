@@ -1,8 +1,11 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import { getSessions, getStreak, getProfile } from "@/lib/storage";
-import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode } from "@/lib/types";
+import { getSessionsFromSupabase } from "@/services/supabase";
+import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode, type SessionRecord } from "@/lib/types";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { Moon, Wind, Target, Play, Flame, Brain, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";

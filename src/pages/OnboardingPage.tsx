@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { saveProfile } from "@/lib/storage";
+import { saveProfileToSupabase } from "@/services/supabase";
 import type { UserProfile } from "@/lib/types";
 import type { Goal, Period, StressLevel, SessionDuration } from "@/lib/types";
 import { Progress } from "@/components/ui/progress";
