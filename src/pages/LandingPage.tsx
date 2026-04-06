@@ -1,15 +1,20 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Check, Moon, Brain, Zap, Heart, Shield, Star, ChevronDown, Play, Headphones, Volume2, BarChart3, Wind } from "lucide-react";
-import AudioDemo from "@/components/AudioDemo";
-import { SessionMockup, DashboardMockup, SleepMockup } from "@/components/AppMockup";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import logoSonus from "@/assets/logo-sonus.png";
-import heroMockup from "@/assets/hero-mockup.png";
 import waveBanner from "@/assets/wave-banner.jpg";
-import sleepPerson from "@/assets/sleep-person.jpg";
+
+// Lazy load heavy components
+const AudioDemo = lazy(() => import("@/components/AudioDemo"));
+
+
+// Lazy wrappers
+const LazySessionMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.SessionMockup })));
+const LazyDashboardMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.DashboardMockup })));
+const LazySleepMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.SleepMockup })));
 
 const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
 const HOTMART_ANNUAL = "https://pay.hotmart.com/B105258428G?off=6ttxc4wf&checkoutMode=10";
@@ -214,7 +219,7 @@ const LandingPage = () => {
             <motion.img
               src={logoSonus}
               alt="Sonus"
-              className="w-48 h-48 mx-auto lg:mx-0 mb-6 object-contain"
+              className="w-56 h-56 md:w-64 md:h-64 mx-auto lg:mx-0 mb-6 object-contain"
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -260,7 +265,7 @@ const LandingPage = () => {
             className="flex-1 flex justify-center relative"
           >
             <div className="relative scale-110 md:scale-125 lg:scale-[1.4]">
-              <SessionMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazySessionMockup /></Suspense>
             </div>
           </motion.div>
         </div>
@@ -352,10 +357,12 @@ const LandingPage = () => {
             {t("sales.demo.desc")}
           </motion.p>
 
-          <AudioDemo
-            ctaText={t("sales.hero.cta")}
-            onCta={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
-          />
+          <Suspense fallback={<div className="h-64" />}>
+            <AudioDemo
+              ctaText={t("sales.hero.cta")}
+              onCta={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+            />
+          </Suspense>
         </div>
       </section>
 
@@ -423,7 +430,7 @@ const LandingPage = () => {
           >
             {/* Session */}
             <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
-              <SessionMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazySessionMockup /></Suspense>
               <div className="text-center mt-4">
                 <h3 className="font-display font-semibold text-foreground">{features[0].title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{features[0].desc}</p>
@@ -432,7 +439,7 @@ const LandingPage = () => {
 
             {/* Dashboard */}
             <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
-              <DashboardMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazyDashboardMockup /></Suspense>
               <div className="text-center mt-4">
                 <h3 className="font-display font-semibold text-foreground">{features[4].title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{features[4].desc}</p>
@@ -441,7 +448,7 @@ const LandingPage = () => {
 
             {/* Sleep */}
             <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
-              <SleepMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazySleepMockup /></Suspense>
               <div className="text-center mt-4">
                 <h3 className="font-display font-semibold text-foreground">{features[2].title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{features[2].desc}</p>
@@ -532,7 +539,7 @@ const LandingPage = () => {
             >
               <h3 className="font-display text-xl font-bold text-foreground mb-2">{t("sales.pricing.monthly")}</h3>
               <div className="mb-6">
-                <span className="font-display text-4xl font-bold text-gradient">$7.99</span>
+                <span className="font-display text-4xl font-bold text-gradient">US$ 7.99</span>
                 <span className="text-muted-foreground">/{t("sales.pricing.mo")}</span>
               </div>
               <ul className="space-y-3 mb-8 text-left">
@@ -565,7 +572,7 @@ const LandingPage = () => {
               </div>
               <h3 className="font-display text-xl font-bold text-foreground mb-2">{t("sales.pricing.annual")}</h3>
               <div className="mb-2">
-                <span className="font-display text-4xl font-bold text-gradient">$29.99</span>
+                <span className="font-display text-4xl font-bold text-gradient">US$ 29.99</span>
                 <span className="text-muted-foreground">/{t("sales.pricing.yr")}</span>
               </div>
               <p className="text-sm text-sonus-neon mb-6 font-semibold">{t("sales.pricing.save")}</p>
@@ -626,7 +633,7 @@ const LandingPage = () => {
           <motion.img
             src={logoSonus}
             alt="Sonus"
-            className="w-40 h-40 mx-auto mb-6 object-contain"
+            className="w-48 h-48 mx-auto mb-6 object-contain"
             animate={{ scale: [1, 1.08, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
