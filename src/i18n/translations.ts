@@ -171,6 +171,14 @@ export const translations = {
     "general.minutes": "min",
     "general.hours": "h",
 
+    // Insights
+    "nav.insights": "Insights",
+    "insights.title": "Insights da Semana",
+    "insights.desc": "Análise personalizada baseada nos seus últimos 7 dias de sessões e sono.",
+    "insights.refresh": "Atualizar",
+    "insights.error": "Erro ao gerar insights. Tente novamente.",
+    "insights.empty": "Complete algumas sessões para gerar seus insights semanais.",
+
     // Sleep Log
     "nav.sleep": "Sono",
     "sleep.title": "Registro de Sono",
@@ -452,6 +460,14 @@ export const translations = {
     "general.loading": "Loading...",
     "general.minutes": "min",
     "general.hours": "h",
+
+    // Insights
+    "nav.insights": "Insights",
+    "insights.title": "Weekly Insights",
+    "insights.desc": "Personalized analysis based on your last 7 days of sessions and sleep.",
+    "insights.refresh": "Refresh",
+    "insights.error": "Error generating insights. Please try again.",
+    "insights.empty": "Complete a few sessions to generate your weekly insights.",
 
     // Sleep Log
     "nav.sleep": "Sleep",

@@ -1,11 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { LayoutDashboard, Music, User, CreditCard, Clock, Moon } from "lucide-react";
+import { LayoutDashboard, Music, User, CreditCard, Clock, Moon, Sparkles } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = [
   { path: "/dashboard", icon: LayoutDashboard, key: "nav.dashboard" as const },
   { path: "/session", icon: Music, key: "nav.session" as const },
+  { path: "/insights", icon: Sparkles, key: "nav.insights" as const },
   { path: "/sleep", icon: Moon, key: "nav.sleep" as const },
   { path: "/history", icon: Clock, key: "nav.history" as const },
   { path: "/profile", icon: User, key: "nav.profile" as const },
