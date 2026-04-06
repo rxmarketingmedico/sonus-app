@@ -161,6 +161,16 @@ export const translations = {
     "auth.checkEmail": "Verifique seu email para confirmar o cadastro",
     "auth.error": "Erro na autenticação",
     "auth.signOut": "Sair",
+    "auth.noPurchase": "Nenhuma compra encontrada para este email. Adquira um plano primeiro.",
+    "auth.accountCreated": "Conta criada com sucesso! Faça login.",
+    "auth.backToHome": "Voltar",
+    "auth.welcomeBack": "Bem-vindo ao Sonus",
+    "auth.createAccountDesc": "Use o email da sua compra para criar sua conta",
+    "auth.loginDesc": "Entre com o email da sua compra",
+    "auth.createAccount": "Criar conta",
+    "auth.purchaseRequired": "Use o mesmo email utilizado na compra do plano Hotmart",
+    "auth.emailPlaceholder": "Email da compra",
+    "auth.loginButton": "Entrar",
 
     // General
     "general.loading": "Carregando...",
