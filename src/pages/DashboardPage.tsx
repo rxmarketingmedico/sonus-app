@@ -42,7 +42,7 @@ const DashboardPage = () => {
         best = mode;
       }
     });
-    return best ? FREQUENCY_PRESETS[best as SessionMode]?.label || best : "—";
+    return best ? t(`mode.${best}` as any) : "—";
   };
 
   // Weekly emotional data
