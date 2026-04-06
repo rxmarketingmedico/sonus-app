@@ -150,6 +150,18 @@ export const translations = {
     "profile.stress": "Estresse",
     "profile.duration": "Duração",
 
+    // Auth
+    "auth.subtitle": "Faça login para acessar suas sessões",
+    "auth.signIn": "Entrar",
+    "auth.signUp": "Cadastrar",
+    "auth.email": "Email",
+    "auth.password": "Senha",
+    "auth.google": "Continuar com Google",
+    "auth.or": "ou",
+    "auth.checkEmail": "Verifique seu email para confirmar o cadastro",
+    "auth.error": "Erro na autenticação",
+    "auth.signOut": "Sair",
+
     // General
     "general.loading": "Carregando...",
     "general.minutes": "min",
@@ -311,6 +323,19 @@ export const translations = {
     "profile.period": "Period",
     "profile.stress": "Stress",
     "profile.duration": "Duration",
+
+
+    // Auth
+    "auth.subtitle": "Sign in to access your sessions",
+    "auth.signIn": "Sign in",
+    "auth.signUp": "Sign up",
+    "auth.email": "Email",
+    "auth.password": "Password",
+    "auth.google": "Continue with Google",
+    "auth.or": "or",
+    "auth.checkEmail": "Check your email to confirm your account",
+    "auth.error": "Authentication error",
+    "auth.signOut": "Sign out",
 
     // General
     "general.loading": "Loading...",

@@ -1,14 +1,21 @@
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { getProfile } from "@/lib/storage";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Globe, RefreshCw } from "lucide-react";
+import { Globe, RefreshCw, LogOut } from "lucide-react";
 
 const ProfilePage = () => {
   const { t, language, setLanguage } = useLanguage();
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
   const profile = getProfile();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-md mx-auto">
@@ -17,6 +24,14 @@ const ProfilePage = () => {
       </motion.h1>
 
       <div className="space-y-4">
+        {/* Email */}
+        {user && (
+          <div className="bg-card/50 border border-border/50 rounded-xl p-4">
+            <p className="text-xs text-muted-foreground mb-1">{t("auth.email")}</p>
+            <p className="text-sm text-foreground">{user.email}</p>
+          </div>
+        )}
+
         {/* Language */}
         <div className="bg-card/50 border border-border/50 rounded-xl p-4">
           <div className="flex items-center justify-between">
@@ -67,6 +82,12 @@ const ProfilePage = () => {
         <Button variant="outline" className="w-full" onClick={() => { localStorage.removeItem("sonus-profile"); navigate("/onboarding"); }}>
           <RefreshCw className="w-4 h-4 mr-2" />
           {t("profile.editOnboarding")}
+        </Button>
+
+        {/* Sign Out */}
+        <Button variant="outline" className="w-full text-destructive border-destructive/30 hover:bg-destructive/10" onClick={handleSignOut}>
+          <LogOut className="w-4 h-4 mr-2" />
+          {t("auth.signOut")}
         </Button>
       </div>
     </div>
