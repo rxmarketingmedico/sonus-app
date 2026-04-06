@@ -11,21 +11,19 @@ import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode, type SessionRecord }
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { Moon, Wind, Target, Play, Flame, Brain, Zap, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import PaywallModal from "@/components/PaywallModal";
 
-const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
+
 
 const DashboardPage = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
-  const { isFree, canStartSession, sessionsRemaining } = useUserPlan();
+  const { } = useUserPlan();
   const navigate = useNavigate();
   const profile = getProfile();
   const localSessions = getSessions();
   const streak = getStreak();
 
   const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
-  const [showPaywall, setShowPaywall] = useState(false);
   const [lastSleep, setLastSleep] = useState<{ hours: number; quality: number } | null>(null);
 
   const emojis = ["😞", "😕", "😐", "🙂", "😊"];
@@ -66,10 +64,6 @@ const DashboardPage = () => {
   const modeFromProfile: SessionMode = profile ? GOAL_TO_MODE[profile.goal] : "calm";
 
   const handleStartSession = (mode: SessionMode) => {
-    if (!canStartSession()) {
-      setShowPaywall(true);
-      return;
-    }
     navigate(`/session?mode=${mode}`);
   };
 
@@ -115,32 +109,9 @@ const DashboardPage = () => {
     };
   });
 
-  const limitReached = isFree && !canStartSession();
 
   return (
     <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-4xl mx-auto">
-      <PaywallModal open={showPaywall} onClose={() => setShowPaywall(false)} />
-
-      {/* Limit banner */}
-      {limitReached && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6 rounded-xl border border-sonus-purple/30 bg-sonus-purple/10 p-4 flex items-center justify-between gap-4 flex-wrap"
-        >
-          <div className="flex items-center gap-2 text-sm text-foreground">
-            <Crown className="w-4 h-4 text-sonus-purple" />
-            {t("paywall.banner")}
-          </div>
-          <Button
-            size="sm"
-            className="gradient-primary text-primary-foreground rounded-full text-xs"
-            onClick={() => window.open(HOTMART_MONTHLY, "_blank")}
-          >
-            {t("paywall.bannerCta")}
-          </Button>
-        </motion.div>
-      )}
 
       {/* Welcome */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">

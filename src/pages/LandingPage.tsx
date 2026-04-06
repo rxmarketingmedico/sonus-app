@@ -179,6 +179,21 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      {/* Fixed login button */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="fixed top-4 right-4 z-50"
+      >
+        <Button
+          variant="outline"
+          className="rounded-full border-sonus-purple/30 bg-card/80 backdrop-blur-sm hover:bg-sonus-purple/10 font-display text-sm px-5"
+          onClick={() => navigate("/auth")}
+        >
+          {t("auth.loginButton")}
+        </Button>
+      </motion.div>
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">

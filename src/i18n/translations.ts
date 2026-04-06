@@ -161,6 +161,16 @@ export const translations = {
     "auth.checkEmail": "Verifique seu email para confirmar o cadastro",
     "auth.error": "Erro na autenticação",
     "auth.signOut": "Sair",
+    "auth.noPurchase": "Nenhuma compra encontrada para este email. Adquira um plano primeiro.",
+    "auth.accountCreated": "Conta criada com sucesso! Faça login.",
+    "auth.backToHome": "Voltar",
+    "auth.welcomeBack": "Bem-vindo ao Sonus",
+    "auth.createAccountDesc": "Use o email da sua compra para criar sua conta",
+    "auth.loginDesc": "Entre com o email da sua compra",
+    "auth.createAccount": "Criar conta",
+    "auth.purchaseRequired": "Use o mesmo email utilizado na compra do plano Hotmart",
+    "auth.emailPlaceholder": "Email da compra",
+    "auth.loginButton": "Entrar",
 
     // General
     "general.loading": "Carregando...",
@@ -436,6 +446,16 @@ export const translations = {
     "auth.checkEmail": "Check your email to confirm your account",
     "auth.error": "Authentication error",
     "auth.signOut": "Sign out",
+    "auth.noPurchase": "No purchase found for this email. Please buy a plan first.",
+    "auth.accountCreated": "Account created successfully! Please sign in.",
+    "auth.backToHome": "Back",
+    "auth.welcomeBack": "Welcome to Sonus",
+    "auth.createAccountDesc": "Use the email from your purchase to create your account",
+    "auth.loginDesc": "Sign in with your purchase email",
+    "auth.createAccount": "Create account",
+    "auth.purchaseRequired": "Use the same email you used for your Hotmart purchase",
+    "auth.emailPlaceholder": "Purchase email",
+    "auth.loginButton": "Login",
 
     // General
     "general.loading": "Loading...",

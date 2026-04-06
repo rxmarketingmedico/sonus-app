@@ -18,7 +18,6 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Validate webhook token
     const hottok = req.headers.get("x-hotmart-hottok");
     const expectedToken = Deno.env.get("HOTMART_WEBHOOK_TOKEN");
 
@@ -32,6 +31,7 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const event = body?.event;
     const buyerEmail = body?.data?.buyer?.email;
+    const transaction = body?.data?.purchase?.transaction || body?.data?.purchase?.order_date || null;
 
     if (!event || !buyerEmail) {
       return new Response(
@@ -48,53 +48,72 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Find user by email
-    const { data: users, error: listError } =
-      await supabase.auth.admin.listUsers();
-
-    if (listError) {
-      console.error("Error listing users:", listError);
-      return new Response(JSON.stringify({ error: "Internal error" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const user = users.users.find(
-      (u) => u.email?.toLowerCase() === buyerEmail.toLowerCase()
-    );
-
-    if (!user) {
-      console.log(`User not found for email: ${buyerEmail}`);
-      return new Response(JSON.stringify({ error: "User not found" }), {
-        status: 404,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
+    const normalizedEmail = buyerEmail.toLowerCase();
     let newPlan: string | null = null;
+    let newStatus: string | null = null;
 
     if (UPGRADE_EVENTS.includes(event)) {
       newPlan = "pro";
+      newStatus = "active";
     } else if (DOWNGRADE_EVENTS.includes(event)) {
       newPlan = "free";
+      newStatus = "cancelled";
     }
 
-    if (newPlan) {
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({ plan: newPlan, updated_at: new Date().toISOString() })
-        .eq("id", user.id);
+    if (!newPlan) {
+      return new Response(JSON.stringify({ success: true, message: "Event ignored" }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
-      if (updateError) {
-        console.error("Error updating profile:", updateError);
-        return new Response(JSON.stringify({ error: "Failed to update plan" }), {
-          status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+    // Always store the purchase record
+    const { error: purchaseError } = await supabase
+      .from("purchases")
+      .insert({
+        email: normalizedEmail,
+        event,
+        hotmart_transaction: transaction,
+        plan: newPlan,
+        status: newStatus,
+      });
+
+    if (purchaseError) {
+      console.error("Error inserting purchase:", purchaseError);
+    }
+
+    // If cancellation/refund, also update existing active purchases
+    if (newStatus === "cancelled") {
+      await supabase
+        .from("purchases")
+        .update({ status: "cancelled", updated_at: new Date().toISOString() })
+        .eq("email", normalizedEmail)
+        .eq("status", "active");
+    }
+
+    // Try to find existing user and update their profile
+    const { data: users, error: listError } =
+      await supabase.auth.admin.listUsers();
+
+    if (!listError) {
+      const user = users.users.find(
+        (u) => u.email?.toLowerCase() === normalizedEmail
+      );
+
+      if (user) {
+        const { error: updateError } = await supabase
+          .from("profiles")
+          .update({ plan: newPlan, updated_at: new Date().toISOString() })
+          .eq("id", user.id);
+
+        if (updateError) {
+          console.error("Error updating profile:", updateError);
+        } else {
+          console.log(`Updated user ${user.id} plan to ${newPlan}`);
+        }
+      } else {
+        console.log(`No user yet for ${normalizedEmail}, purchase stored for when they sign up`);
       }
-
-      console.log(`Updated user ${user.id} plan to ${newPlan} (event: ${event})`);
     }
 
     return new Response(JSON.stringify({ success: true, plan: newPlan }), {

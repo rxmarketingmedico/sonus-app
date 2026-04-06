@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
-import { useUserPlan } from "@/hooks/useUserPlan";
+
 import { motion } from "framer-motion";
 import { Moon, Clock, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import PaywallModal from "@/components/PaywallModal";
+
 
 const emojis = ["😞", "😕", "😐", "🙂", "😊"];
 
@@ -43,8 +43,8 @@ const calcHours = (bedtime: string, waketime: string): number => {
 const SleepLogPage = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
-  const { isFree } = useUserPlan();
-  const [showPaywall, setShowPaywall] = useState(false);
+
+
   const [bedtime, setBedtime] = useState("23:00");
   const [waketime, setWaketime] = useState("07:00");
   const [quality, setQuality] = useState<number | null>(null);
@@ -53,12 +53,8 @@ const SleepLogPage = () => {
   const [logs, setLogs] = useState<SleepLogEntry[]>([]);
 
   useEffect(() => {
-    if (isFree) {
-      setShowPaywall(true);
-      return;
-    }
     loadLogs();
-  }, [isFree]);
+  }, []);
 
   const loadLogs = async () => {
     const local = getLocalSleepLogs();
@@ -124,9 +120,8 @@ const SleepLogPage = () => {
     setTimeout(() => setSaved(false), 2000);
   };
 
-  if (showPaywall) {
-    return <PaywallModal open={true} onClose={() => window.history.back()} />;
-  }
+
+
 
   return (
     <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-2xl mx-auto">
