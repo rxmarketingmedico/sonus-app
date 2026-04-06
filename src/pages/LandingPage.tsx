@@ -532,7 +532,7 @@ const LandingPage = () => {
             >
               <h3 className="font-display text-xl font-bold text-foreground mb-2">{t("sales.pricing.monthly")}</h3>
               <div className="mb-6">
-                <span className="font-display text-4xl font-bold text-gradient">$7.99</span>
+                <span className="font-display text-4xl font-bold text-gradient">US$ 7.99</span>
                 <span className="text-muted-foreground">/{t("sales.pricing.mo")}</span>
               </div>
               <ul className="space-y-3 mb-8 text-left">
