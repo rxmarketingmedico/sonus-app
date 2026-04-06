@@ -24,7 +24,6 @@ const DashboardPage = () => {
   const streak = getStreak();
 
   const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
-  const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
   const [lastSleep, setLastSleep] = useState<{ hours: number; quality: number } | null>(null);
 
   const emojis = ["😞", "😕", "😐", "🙂", "😊"];
