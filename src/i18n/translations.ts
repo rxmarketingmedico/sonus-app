@@ -527,15 +527,15 @@ export const translations = {
     "sales.test3": "The combination of guided breathing + binaural sounds is incredible. Highly recommend.",
 
     "sales.pricing.title": "Invest in your well-being",
-    "sales.pricing.desc": "Choose the plan that's right for you. Start with a 7-day free trial.",
+    "sales.pricing.desc": "Choose the plan that's right for you.",
     "sales.pricing.monthly": "Monthly",
     "sales.pricing.annual": "Annual",
     "sales.pricing.mo": "mo",
     "sales.pricing.yr": "yr",
     "sales.pricing.save": "Save 69% — just $2.50/mo",
     "sales.pricing.bestValue": "Best value",
-    "sales.pricing.cta": "Start 7-day free trial",
-    "sales.pricing.guarantee": "7-day guarantee. Cancel anytime.",
+    "sales.pricing.cta": "Subscribe now",
+    "sales.pricing.guarantee": "Cancel anytime.",
 
     "sales.pro.f1": "Unlimited sessions",
     "sales.pro.f2": "All ambient sounds",
