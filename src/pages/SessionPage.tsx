@@ -23,6 +23,7 @@ const SessionPage = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showBreathwork, setShowBreathwork] = useState(false);
   const [showMoodCheckIn, setShowMoodCheckIn] = useState(false);
   const [moodPre, setMoodPre] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
