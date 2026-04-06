@@ -17,6 +17,7 @@ import FeedbackPage from "./pages/FeedbackPage";
 import PlansPage from "./pages/PlansPage";
 import ProfilePage from "./pages/ProfilePage";
 import HistoryPage from "./pages/HistoryPage";
+import SleepLogPage from "./pages/SleepLogPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -75,6 +76,7 @@ const AnimatedRoutes = () => {
         <Route path="/session" element={<ProtectedRoute><PageWrapper><SessionPage /></PageWrapper></ProtectedRoute>} />
         <Route path="/feedback" element={<ProtectedRoute><PageWrapper><FeedbackPage /></PageWrapper></ProtectedRoute>} />
         <Route path="/history" element={<ProtectedRoute><PageWrapper><HistoryPage /></PageWrapper></ProtectedRoute>} />
+        <Route path="/sleep" element={<ProtectedRoute><PageWrapper><SleepLogPage /></PageWrapper></ProtectedRoute>} />
         <Route path="/plans" element={<ProtectedRoute><PageWrapper><PlansPage /></PageWrapper></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><PageWrapper><ProfilePage /></PageWrapper></ProtectedRoute>} />
 

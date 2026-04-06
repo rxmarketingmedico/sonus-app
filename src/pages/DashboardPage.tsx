@@ -6,6 +6,7 @@ import { useUserPlan } from "@/hooks/useUserPlan";
 import { motion } from "framer-motion";
 import { getSessions, getStreak, getProfile } from "@/lib/storage";
 import { getSessionsFromSupabase } from "@/services/supabase";
+import { supabase } from "@/integrations/supabase/client";
 import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode, type SessionRecord } from "@/lib/types";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { Moon, Wind, Target, Play, Flame, Brain, Zap, Crown } from "lucide-react";
@@ -25,6 +26,29 @@ const DashboardPage = () => {
 
   const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
   const [showPaywall, setShowPaywall] = useState(false);
+  const [lastSleep, setLastSleep] = useState<{ hours: number; quality: number } | null>(null);
+
+  const emojis = ["😞", "😕", "😐", "🙂", "😊"];
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("sleep_logs")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          const log = data[0];
+          const [bh, bm] = log.bedtime.split(":").map(Number);
+          const [wh, wm] = log.waketime.split(":").map(Number);
+          let diff = (wh * 60 + wm) - (bh * 60 + bm);
+          if (diff < 0) diff += 24 * 60;
+          setLastSleep({ hours: Math.round((diff / 60) * 10) / 10, quality: log.quality });
+        }
+      });
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;
@@ -145,6 +169,37 @@ const DashboardPage = () => {
           <Play className="w-5 h-5 mr-2" />
           {t("dashboard.start")}
         </Button>
+      </motion.div>
+
+      {/* Sleep Summary Card */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+        <div className="bg-card/50 border border-border/50 rounded-2xl p-4 mb-8 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600/20 flex items-center justify-center">
+              <Moon className="w-5 h-5 text-indigo-400" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-foreground">{t("sleep.card.title")}</p>
+              {lastSleep ? (
+                <p className="text-xs text-muted-foreground">
+                  {lastSleep.hours}h — {emojis[(lastSleep.quality - 1)] || "😐"}
+                </p>
+              ) : (
+                <p className="text-xs text-muted-foreground">{t("sleep.card.noLog")}</p>
+              )}
+            </div>
+          </div>
+          {!lastSleep && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="text-xs rounded-full"
+              onClick={() => navigate("/sleep")}
+            >
+              {t("sleep.card.cta")}
+            </Button>
+          )}
+        </div>
       </motion.div>
 
       {/* Quick Modes */}
