@@ -565,8 +565,8 @@ export const translations = {
     "sales.faq4.q": "Can I cancel anytime?",
     "sales.faq4.a": "Yes, no commitment. Cancel whenever you want, hassle-free.",
 
-    "sales.final.title": "Start sleeping better today",
-    "sales.final.desc": "Join thousands of people who have transformed their sleep and well-being with Sonus.",
+    "sales.final.title": "Your calm starts today.",
+    "sales.final.desc": "Start your journey to better sleep and a calmer mind with Sonus.",
     "sales.final.cta": "Subscribe now",
 
     "sales.youArePro": "You're a Pro subscriber!",
