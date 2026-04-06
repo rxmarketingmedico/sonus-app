@@ -1,5 +1,6 @@
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
+import logoSonus from "@/assets/logo-sonus.png";
 
 const WaveAnimation = () => (
   <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
