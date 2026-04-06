@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
-import { useUserPlan } from "@/hooks/useUserPlan";
+
 import { motion } from "framer-motion";
 import { Moon, Clock, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
