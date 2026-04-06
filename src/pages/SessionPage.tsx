@@ -11,6 +11,7 @@ import { Pause, Play, Square, Maximize, Wind } from "lucide-react";
 import ReactiveWaves from "@/components/ReactiveWaves";
 import SessionPreparation from "@/components/SessionPreparation";
 import MoodCheckIn from "@/components/MoodCheckIn";
+import BreathworkGuide from "@/components/BreathworkGuide";
 
 const SessionPage = () => {
   const { t } = useLanguage();
