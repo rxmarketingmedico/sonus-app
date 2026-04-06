@@ -6,6 +6,7 @@ import { useUserPlan } from "@/hooks/useUserPlan";
 import { motion } from "framer-motion";
 import { getSessions, getStreak, getProfile } from "@/lib/storage";
 import { getSessionsFromSupabase } from "@/services/supabase";
+import { supabase } from "@/integrations/supabase/client";
 import { GOAL_TO_MODE, FREQUENCY_PRESETS, type SessionMode, type SessionRecord } from "@/lib/types";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { Moon, Wind, Target, Play, Flame, Brain, Zap, Crown } from "lucide-react";
