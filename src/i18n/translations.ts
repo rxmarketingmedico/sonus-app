@@ -201,8 +201,8 @@ export const translations = {
     "sales.hero.title": "Durma melhor. Acalme sua mente.",
     "sales.hero.subtitle": "Seu companheiro de calma e sono com IA",
     "sales.hero.desc": "O Sonus usa terapia sonora personalizada para ajudar você a dormir, reduzir ansiedade e encontrar paz em apenas 10 minutos.",
-    "sales.hero.cta": "Comece grátis agora",
-    "sales.hero.noCreditCard": "Sem cartão de crédito necessário",
+    "sales.hero.cta": "Assine agora",
+    "sales.hero.noCreditCard": "Cancele quando quiser",
     "sales.hero.users": "usuários",
 
     "sales.problem.title": "Soa familiar?",
@@ -242,15 +242,15 @@ export const translations = {
     "sales.test3": "A combinação de respiração guiada + sons binaurais é incrível. Super recomendo.",
 
     "sales.pricing.title": "Invista no seu bem-estar",
-    "sales.pricing.desc": "Escolha o plano ideal para você. Comece com 7 dias grátis.",
+    "sales.pricing.desc": "Escolha o plano ideal para você.",
     "sales.pricing.monthly": "Mensal",
     "sales.pricing.annual": "Anual",
     "sales.pricing.mo": "mês",
     "sales.pricing.yr": "ano",
     "sales.pricing.save": "Economize 69% — equivale a $2.50/mês",
     "sales.pricing.bestValue": "Melhor valor",
-    "sales.pricing.cta": "Começar teste grátis de 7 dias",
-    "sales.pricing.guarantee": "Garantia de 7 dias. Cancele quando quiser.",
+    "sales.pricing.cta": "Assinar agora",
+    "sales.pricing.guarantee": "Cancele quando quiser.",
 
     "sales.pro.f1": "Sessões ilimitadas",
     "sales.pro.f2": "Todos os sons ambiente",
@@ -271,7 +271,7 @@ export const translations = {
 
     "sales.final.title": "Comece a dormir melhor hoje",
     "sales.final.desc": "Junte-se a milhares de pessoas que transformaram seu sono e bem-estar com o Sonus.",
-    "sales.final.cta": "Criar minha conta grátis",
+    "sales.final.cta": "Assinar agora",
 
     "sales.youArePro": "Você é assinante Pro!",
 
@@ -486,8 +486,8 @@ export const translations = {
     "sales.hero.title": "Sleep better. Calm your mind.",
     "sales.hero.subtitle": "Your AI-powered calm and sleep companion",
     "sales.hero.desc": "Sonus uses personalized sound therapy to help you sleep, reduce anxiety, and find peace in just 10 minutes.",
-    "sales.hero.cta": "Start free now",
-    "sales.hero.noCreditCard": "No credit card required",
+    "sales.hero.cta": "Subscribe now",
+    "sales.hero.noCreditCard": "Cancel anytime",
     "sales.hero.users": "users",
 
     "sales.problem.title": "Sound familiar?",
@@ -527,15 +527,15 @@ export const translations = {
     "sales.test3": "The combination of guided breathing + binaural sounds is incredible. Highly recommend.",
 
     "sales.pricing.title": "Invest in your well-being",
-    "sales.pricing.desc": "Choose the plan that's right for you. Start with a 7-day free trial.",
+    "sales.pricing.desc": "Choose the plan that's right for you.",
     "sales.pricing.monthly": "Monthly",
     "sales.pricing.annual": "Annual",
     "sales.pricing.mo": "mo",
     "sales.pricing.yr": "yr",
     "sales.pricing.save": "Save 69% — just $2.50/mo",
     "sales.pricing.bestValue": "Best value",
-    "sales.pricing.cta": "Start 7-day free trial",
-    "sales.pricing.guarantee": "7-day guarantee. Cancel anytime.",
+    "sales.pricing.cta": "Subscribe now",
+    "sales.pricing.guarantee": "Cancel anytime.",
 
     "sales.pro.f1": "Unlimited sessions",
     "sales.pro.f2": "All ambient sounds",
@@ -556,7 +556,7 @@ export const translations = {
 
     "sales.final.title": "Start sleeping better today",
     "sales.final.desc": "Join thousands of people who have transformed their sleep and well-being with Sonus.",
-    "sales.final.cta": "Create my free account",
+    "sales.final.cta": "Subscribe now",
 
     "sales.youArePro": "You're a Pro subscriber!",
 
