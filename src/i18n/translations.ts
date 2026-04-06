@@ -490,9 +490,10 @@ export const translations = {
     "mode.focus": "Focus sharp",
 
     // Sales
-    "sales.hero.title": "Sleep better. Calm your mind.",
-    "sales.hero.subtitle": "Your AI-powered calm and sleep companion",
-    "sales.hero.desc": "Sonus uses personalized sound therapy to help you sleep, reduce anxiety, and find peace in just 10 minutes.",
+    "sales.hero.title": "Can't sleep? Anxious? Stressed?",
+    "sales.hero.subtitle": "Sonus calms your mind in 10 minutes.",
+    "sales.hero.desc": "AI-powered sound therapy sessions personalized to your mood and emotional patterns.",
+    "sales.hero.seePlans": "See plans",
     "sales.hero.cta": "Subscribe now",
     "sales.hero.noCreditCard": "Cancel anytime",
     "sales.hero.users": "users",
