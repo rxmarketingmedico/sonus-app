@@ -110,32 +110,9 @@ const DashboardPage = () => {
     };
   });
 
-  const limitReached = isFree && !canStartSession();
 
   return (
     <div className="min-h-screen pb-24 md:pb-8 px-4 pt-8 max-w-4xl mx-auto">
-      <PaywallModal open={showPaywall} onClose={() => setShowPaywall(false)} />
-
-      {/* Limit banner */}
-      {limitReached && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6 rounded-xl border border-sonus-purple/30 bg-sonus-purple/10 p-4 flex items-center justify-between gap-4 flex-wrap"
-        >
-          <div className="flex items-center gap-2 text-sm text-foreground">
-            <Crown className="w-4 h-4 text-sonus-purple" />
-            {t("paywall.banner")}
-          </div>
-          <Button
-            size="sm"
-            className="gradient-primary text-primary-foreground rounded-full text-xs"
-            onClick={() => window.open(HOTMART_MONTHLY, "_blank")}
-          >
-            {t("paywall.bannerCta")}
-          </Button>
-        </motion.div>
-      )}
 
       {/* Welcome */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">

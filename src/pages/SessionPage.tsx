@@ -127,36 +127,20 @@ const SessionPage = () => {
     }
   };
 
-  // Filter ocean for free users
-  const allAmbientOptions: { value: AmbientSound; label: string }[] = [
+  // All ambient options available for paid users
+  const ambientOptions: { value: AmbientSound; label: string }[] = [
     { value: "none", label: t("session.none") },
     { value: "rain", label: t("session.rain") },
     { value: "whitenoise", label: t("session.whitenoise") },
     { value: "ocean", label: t("session.ocean") },
   ];
-  const ambientOptions = isFree
-    ? allAmbientOptions.filter((a) => a.value !== "ocean")
-    : allAmbientOptions;
 
-  // Flow: Paywall check → Preparation → Breathwork (Pro only) → MoodCheckIn → Playing
-  if (showPaywall) {
-    return (
-      <PaywallModal
-        open={true}
-        onClose={() => navigate("/dashboard")}
-      />
-    );
-  }
-
+  // Flow: Preparation → Breathwork → MoodCheckIn → Playing
   if (!showBreathwork && !showMoodCheckIn && !isPlaying) {
     return (
       <SessionPreparation
         onReady={() => {
-          if (isFree) {
-            // Skip breathwork for free users
-            setShowMoodCheckIn(true);
-          } else {
-            setShowBreathwork(true);
+          setShowBreathwork(true);
           }
         }}
         modeName={mode}
