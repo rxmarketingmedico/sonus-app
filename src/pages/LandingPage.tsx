@@ -1,15 +1,20 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Check, Moon, Brain, Zap, Heart, Shield, Star, ChevronDown, Play, Headphones, Volume2, BarChart3, Wind } from "lucide-react";
-import AudioDemo from "@/components/AudioDemo";
-import { SessionMockup, DashboardMockup, SleepMockup } from "@/components/AppMockup";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import logoSonus from "@/assets/logo-sonus.png";
-import heroMockup from "@/assets/hero-mockup.png";
 import waveBanner from "@/assets/wave-banner.jpg";
-import sleepPerson from "@/assets/sleep-person.jpg";
+
+// Lazy load heavy components
+const AudioDemo = lazy(() => import("@/components/AudioDemo"));
+const AppMockupModule = lazy(() => import("@/components/AppMockup").then(m => ({ default: () => null, ...m })));
+
+// Lazy wrappers
+const LazySessionMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.SessionMockup })));
+const LazyDashboardMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.DashboardMockup })));
+const LazySleepMockup = lazy(() => import("@/components/AppMockup").then(m => ({ default: m.SleepMockup })));
 
 const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
 const HOTMART_ANNUAL = "https://pay.hotmart.com/B105258428G?off=6ttxc4wf&checkoutMode=10";
