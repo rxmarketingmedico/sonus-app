@@ -559,7 +559,7 @@ export const translations = {
     "sales.faq1.q": "What is sound therapy?",
     "sales.faq1.a": "It's a technique that uses specific sound frequencies to induce states of relaxation, focus, or sleep. Sonus generates these frequencies in real-time, personalized for you.",
     "sales.faq2.q": "Do I need headphones?",
-    "sales.faq2.a": "Yes, stereo headphones are recommended for the best experience with binaural frequencies. Any headphones will work.",
+    "sales.faq2.a": "Yes, stereo headphones are recommended for the best experience. Any headphones will work.",
     "sales.faq3.q": "How long does it take to see results?",
     "sales.faq3.a": "Most users feel a difference from the very first session. Consistent results appear after 1-2 weeks of regular use.",
     "sales.faq4.q": "Can I cancel anytime?",
