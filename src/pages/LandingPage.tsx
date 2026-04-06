@@ -626,7 +626,7 @@ const LandingPage = () => {
           <motion.img
             src={logoSonus}
             alt="Sonus"
-            className="w-40 h-40 mx-auto mb-6 object-contain"
+            className="w-48 h-48 mx-auto mb-6 object-contain"
             animate={{ scale: [1, 1.08, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
