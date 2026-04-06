@@ -70,7 +70,7 @@ const SessionPage = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (engineRef.current) await engineRef.current.stop();
 
-    saveSession({
+    const sessionData: import("@/lib/types").SessionRecord = {
       id: sessionId,
       mode,
       duration: elapsed,
@@ -78,10 +78,15 @@ const SessionPage = () => {
       frequency: freq.beat,
       date: new Date().toISOString(),
       mood_pre: moodPre ?? undefined,
-    });
+    };
+
+    saveSession(sessionData);
+    if (user) {
+      saveSessionToSupabase(sessionData, user.id);
+    }
 
     navigate(`/feedback?sessionId=${sessionId}`);
-  }, [elapsed, freq, mode, navigate, sessionId, targetDuration, moodPre]);
+  }, [elapsed, freq, mode, navigate, sessionId, targetDuration, moodPre, user]);
 
   useEffect(() => {
     if (elapsed >= targetDuration && isPlaying) {

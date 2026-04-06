@@ -11,6 +11,7 @@ const emojis = ["😞", "😕", "😐", "🙂", "😊"];
 
 const FeedbackPage = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("sessionId") || "";
@@ -18,7 +19,11 @@ const FeedbackPage = () => {
 
   const handleSave = () => {
     if (selected !== null) {
-      updateSessionMoodPost(sessionId, selected + 1);
+      const mood = selected + 1;
+      updateSessionMoodPost(sessionId, mood);
+      if (user) {
+        updateMoodPostInSupabase(sessionId, mood);
+      }
     }
     navigate("/dashboard");
   };

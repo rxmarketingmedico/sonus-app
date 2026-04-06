@@ -80,6 +80,9 @@ const OnboardingPage = () => {
       onboardingComplete: true,
     };
     saveProfile(profile);
+    if (user) {
+      saveProfileToSupabase(profile, user.id);
+    }
     navigate("/dashboard");
   };
 
