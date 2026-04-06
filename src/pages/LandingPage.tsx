@@ -394,10 +394,10 @@ const LandingPage = () => {
             <img
               src={sleepPerson}
               alt="Peaceful sleep"
-              className="relative w-full max-w-md mx-auto"
+              className="relative w-full max-w-lg mx-auto rounded-2xl shadow-2xl"
               loading="lazy"
-              width={800}
-              height={800}
+              width={1200}
+              height={896}
             />
           </motion.div>
 
