@@ -201,8 +201,8 @@ export const translations = {
     "sales.hero.title": "Durma melhor. Acalme sua mente.",
     "sales.hero.subtitle": "Seu companheiro de calma e sono com IA",
     "sales.hero.desc": "O Sonus usa terapia sonora personalizada para ajudar você a dormir, reduzir ansiedade e encontrar paz em apenas 10 minutos.",
-    "sales.hero.cta": "Comece grátis agora",
-    "sales.hero.noCreditCard": "Sem cartão de crédito necessário",
+    "sales.hero.cta": "Assine agora",
+    "sales.hero.noCreditCard": "Cancele quando quiser",
     "sales.hero.users": "usuários",
 
     "sales.problem.title": "Soa familiar?",
