@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import logoSonus from "@/assets/logo-sonus.png";
 import heroMockup from "@/assets/hero-mockup.png";
 import waveBanner from "@/assets/wave-banner.jpg";
-import sleepPerson from "@/assets/sleep-person.png";
+import sleepPerson from "@/assets/sleep-person.jpg";
 
 const HOTMART_MONTHLY = "https://pay.hotmart.com/B105258428G?off=flpzgbrw&checkoutMode=10";
 const HOTMART_ANNUAL = "https://pay.hotmart.com/B105258428G?off=6ttxc4wf&checkoutMode=10";
@@ -251,9 +251,9 @@ const LandingPage = () => {
               <img
                 src={heroMockup}
                 alt="Sonus App"
-                className="relative w-64 md:w-80 drop-shadow-2xl"
-                width={800}
-                height={1000}
+                className="relative w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl"
+                width={848}
+                height={1264}
               />
             </div>
           </motion.div>
@@ -394,10 +394,10 @@ const LandingPage = () => {
             <img
               src={sleepPerson}
               alt="Peaceful sleep"
-              className="relative w-full max-w-md mx-auto"
+              className="relative w-full max-w-lg mx-auto rounded-2xl shadow-2xl"
               loading="lazy"
-              width={800}
-              height={800}
+              width={1200}
+              height={896}
             />
           </motion.div>
 
