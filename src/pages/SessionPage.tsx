@@ -187,9 +187,10 @@ const SessionPage = () => {
           </div>
         </div>
 
-        {/* Frequency info */}
-        <p className="text-sm text-muted-foreground mb-6">
-          {freq.label} · {freq.carrier} Hz + {freq.beat} Hz
+        {/* Session info */}
+        <p className="text-sm text-muted-foreground mb-1">{t("session.title")}</p>
+        <p className="text-base font-display font-semibold text-foreground mb-6">
+          {t(`mode.${mode}` as any)}
         </p>
 
         {/* Controls */}

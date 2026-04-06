@@ -12,7 +12,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem("sonus-language");
-    return (saved === "en" ? "en" : "pt-BR") as Language;
+    return (saved === "pt-BR" ? "pt-BR" : "en") as Language;
   });
 
   const setLanguage = useCallback((lang: Language) => {

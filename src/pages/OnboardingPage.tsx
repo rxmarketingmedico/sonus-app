@@ -13,8 +13,8 @@ const OnboardingPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [goal, setGoal] = useState<Goal | "">("");
-  const [period, setPeriod] = useState<Period | "">("");
   const [stress, setStress] = useState<StressLevel | "">("");
+  const [period, setPeriod] = useState<Period | "">("");
   const [duration, setDuration] = useState<SessionDuration | 0>(0);
 
   const totalSteps = 4;
@@ -23,9 +23,9 @@ const OnboardingPage = () => {
     {
       title: t("onboarding.step1.title"),
       options: [
-        { value: "tension", label: t("onboarding.step1.option1"), icon: "💆" },
+        { value: "sleep", label: t("onboarding.step1.option1"), icon: "🌙" },
         { value: "calm", label: t("onboarding.step1.option2"), icon: "🧘" },
-        { value: "sleep", label: t("onboarding.step1.option3"), icon: "🌙" },
+        { value: "tension", label: t("onboarding.step1.option3"), icon: "💆" },
         { value: "focus", label: t("onboarding.step1.option4"), icon: "🎯" },
       ],
       selected: goal,
@@ -34,30 +34,31 @@ const OnboardingPage = () => {
     {
       title: t("onboarding.step2.title"),
       options: [
-        { value: "morning", label: t("onboarding.step2.option1"), icon: "🌅" },
-        { value: "afternoon", label: t("onboarding.step2.option2"), icon: "☀️" },
-        { value: "night", label: t("onboarding.step2.option3"), icon: "🌙" },
+        { value: "low", label: t("onboarding.step2.option1"), icon: "😌" },
+        { value: "medium", label: t("onboarding.step2.option2"), icon: "😐" },
+        { value: "high", label: t("onboarding.step2.option3"), icon: "😰" },
       ],
-      selected: period,
-      onSelect: (v: string) => setPeriod(v as Period),
+      selected: stress,
+      onSelect: (v: string) => setStress(v as StressLevel),
     },
     {
       title: t("onboarding.step3.title"),
       options: [
-        { value: "low", label: t("onboarding.step3.option1"), icon: "😌" },
-        { value: "medium", label: t("onboarding.step3.option2"), icon: "😐" },
-        { value: "high", label: t("onboarding.step3.option3"), icon: "😰" },
+        { value: "morning", label: t("onboarding.step3.option1"), icon: "🌅" },
+        { value: "afternoon", label: t("onboarding.step3.option2"), icon: "☀️" },
+        { value: "evening", label: t("onboarding.step3.option3"), icon: "🌇" },
+        { value: "night", label: t("onboarding.step3.option4"), icon: "🌙" },
       ],
-      selected: stress,
-      onSelect: (v: string) => setStress(v as StressLevel),
+      selected: period,
+      onSelect: (v: string) => setPeriod(v as Period),
     },
     {
       title: t("onboarding.step4.title"),
       options: [
         { value: "5", label: t("onboarding.step4.option1"), icon: "⏱️" },
         { value: "10", label: t("onboarding.step4.option2"), icon: "⏱️" },
-        { value: "20", label: t("onboarding.step4.option3"), icon: "⏱️" },
-        { value: "30", label: t("onboarding.step4.option4"), icon: "⏱️" },
+        { value: "15", label: t("onboarding.step4.option3"), icon: "⏱️" },
+        { value: "20", label: t("onboarding.step4.option4"), icon: "⏱️" },
       ],
       selected: duration ? String(duration) : "",
       onSelect: (v: string) => setDuration(Number(v) as SessionDuration),

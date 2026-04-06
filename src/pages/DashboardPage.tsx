@@ -42,7 +42,7 @@ const DashboardPage = () => {
         best = mode;
       }
     });
-    return best ? FREQUENCY_PRESETS[best as SessionMode]?.label || best : "—";
+    return best ? t(`mode.${best}` as any) : "—";
   };
 
   // Weekly emotional data
@@ -139,9 +139,9 @@ const DashboardPage = () => {
           {sessions.slice(0, 5).map((s) => (
             <div key={s.id} className="bg-card/50 border border-border/50 rounded-xl p-3 flex items-center justify-between">
               <div>
-                <span className="text-sm font-medium text-foreground capitalize">{s.mode}</span>
+                <span className="text-sm font-medium text-foreground">{t(`mode.${s.mode}` as any)}</span>
                 <span className="text-xs text-muted-foreground ml-2">
-                  {Math.round(s.duration / 60)} min · {FREQUENCY_PRESETS[s.mode]?.label}
+                  {Math.round(s.duration / 60)} min
                 </span>
               </div>
               <div className="text-xs text-muted-foreground">
