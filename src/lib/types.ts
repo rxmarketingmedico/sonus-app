@@ -1,7 +1,7 @@
 export type Goal = "tension" | "calm" | "sleep" | "focus";
-export type Period = "morning" | "afternoon" | "night";
+export type Period = "morning" | "afternoon" | "evening" | "night";
 export type StressLevel = "low" | "medium" | "high";
-export type SessionDuration = 5 | 10 | 20 | 30;
+export type SessionDuration = 5 | 10 | 15 | 20;
 export type AmbientSound = "none" | "rain" | "whitenoise" | "ocean";
 export type SessionMode = "sleep" | "calm" | "focus" | "alpha" | "custom";
 
