@@ -18,6 +18,7 @@ import BreathworkGuide from "@/components/BreathworkGuide";
 const SessionPage = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const mode = (searchParams.get("mode") || "calm") as SessionMode;
   const profile = getProfile();
