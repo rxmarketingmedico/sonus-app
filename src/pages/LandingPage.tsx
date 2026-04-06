@@ -357,10 +357,12 @@ const LandingPage = () => {
             {t("sales.demo.desc")}
           </motion.p>
 
-          <AudioDemo
-            ctaText={t("sales.hero.cta")}
-            onCta={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
-          />
+          <Suspense fallback={<div className="h-64" />}>
+            <AudioDemo
+              ctaText={t("sales.hero.cta")}
+              onCta={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+            />
+          </Suspense>
         </div>
       </section>
 
