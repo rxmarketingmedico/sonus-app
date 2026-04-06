@@ -258,19 +258,8 @@ const LandingPage = () => {
             style={{ y: heroParallax }}
             className="flex-1 flex justify-center relative"
           >
-            <div className="relative">
-              <motion.div
-                className="absolute -inset-8 rounded-full bg-sonus-purple/20 blur-3xl"
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <img
-                src={heroMockup}
-                alt="Sonus App"
-                className="relative w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl"
-                width={848}
-                height={1264}
-              />
+            <div className="relative scale-110 md:scale-125 lg:scale-[1.4]">
+              <SessionMockup />
             </div>
           </motion.div>
         </div>
