@@ -43,10 +43,12 @@ const LandingPage = () => {
         transition={{ duration: 0.8 }}
         className="text-center z-10 max-w-2xl"
       >
-        {/* Breathing sphere */}
-        <motion.div
-          className="w-24 h-24 mx-auto mb-8 rounded-full gradient-primary glow-purple"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
+        {/* Logo */}
+        <motion.img
+          src={logoSonus}
+          alt="Sonus"
+          className="w-28 h-28 mx-auto mb-8 object-contain"
+          animate={{ scale: [1, 1.05, 1], opacity: [0.85, 1, 0.85] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
 
