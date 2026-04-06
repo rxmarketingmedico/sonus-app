@@ -205,6 +205,9 @@ export const translations = {
     "sales.problem2": "Minha mente não para de acelerar",
     "sales.problem3": "Acordo cansado mesmo depois de dormir",
 
+    "sales.demo.title": "Experimente agora",
+    "sales.demo.desc": "Coloque seus fones de ouvido e sinta o efeito da terapia sonora em tempo real. 30 segundos gratuitos.",
+
     "sales.solution.title": "Como o Sonus funciona",
     "sales.solution.desc": "Três passos simples para transformar seu sono e bem-estar mental.",
     "sales.step1.title": "Personalize",
