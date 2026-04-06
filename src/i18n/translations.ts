@@ -519,7 +519,7 @@ export const translations = {
     "sales.features.title": "Everything you need",
     "sales.features.desc": "Powerful tools based on neuroscience to transform your well-being.",
     "sales.feat1.title": "AI Sound Therapy",
-    "sales.feat1.desc": "Personalized binaural frequencies generated in real-time.",
+    "sales.feat1.desc": "Personalized frequencies generated in real-time by AI.",
     "sales.feat2.title": "Breathing Guide",
     "sales.feat2.desc": "Animated breathing exercises to calm you before sessions.",
     "sales.feat3.title": "Sleep Log",
