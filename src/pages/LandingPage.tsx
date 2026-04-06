@@ -428,7 +428,7 @@ const LandingPage = () => {
           >
             {/* Session */}
             <motion.div variants={staggerItem} className="flex flex-col items-center gap-4">
-              <SessionMockup />
+              <Suspense fallback={<div className="w-56 h-[440px]" />}><LazySessionMockup /></Suspense>
               <div className="text-center mt-4">
                 <h3 className="font-display font-semibold text-foreground">{features[0].title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{features[0].desc}</p>
