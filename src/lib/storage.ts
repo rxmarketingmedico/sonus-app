@@ -23,13 +23,27 @@ export const saveSession = (session: SessionRecord) => {
   localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions.slice(0, 100)));
 };
 
-export const updateSessionFeedback = (id: string, feedback: number) => {
+export const updateSessionMoodPost = (id: string, mood: number) => {
   const sessions = getSessions();
   const idx = sessions.findIndex((s) => s.id === id);
   if (idx !== -1) {
-    sessions[idx].feedback = feedback;
+    sessions[idx].mood_post = mood;
     localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions));
   }
+};
+
+export const updateSessionMoodPre = (id: string, mood: number) => {
+  const sessions = getSessions();
+  const idx = sessions.findIndex((s) => s.id === id);
+  if (idx !== -1) {
+    sessions[idx].mood_pre = mood;
+    localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions));
+  }
+};
+
+/** @deprecated use updateSessionMoodPost */
+export const updateSessionFeedback = (id: string, feedback: number) => {
+  updateSessionMoodPost(id, feedback);
 };
 
 export const getStreak = (): number => {

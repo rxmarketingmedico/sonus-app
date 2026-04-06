@@ -16,11 +16,14 @@ export interface UserProfile {
 export interface SessionRecord {
   id: string;
   mode: SessionMode;
-  duration: number; // actual seconds
-  targetDuration: number; // target seconds
+  duration: number;
+  targetDuration: number;
   frequency: number;
   date: string;
-  feedback?: number; // 1-5
+  mood_pre?: number;
+  mood_post?: number;
+  /** @deprecated use mood_post */
+  feedback?: number;
 }
 
 export interface FrequencyConfig {

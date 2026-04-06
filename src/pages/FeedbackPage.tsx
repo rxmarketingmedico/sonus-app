@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
-import { updateSessionFeedback } from "@/lib/storage";
+import { updateSessionMoodPost } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 
 const emojis = ["😞", "😕", "😐", "🙂", "😊"];
@@ -16,7 +16,7 @@ const FeedbackPage = () => {
 
   const handleSave = () => {
     if (selected !== null) {
-      updateSessionFeedback(sessionId, selected + 1);
+      updateSessionMoodPost(sessionId, selected + 1);
     }
     navigate("/dashboard");
   };
