@@ -26,6 +26,29 @@ const DashboardPage = () => {
 
   const [sessions, setSessions] = useState<SessionRecord[]>(localSessions);
   const [showPaywall, setShowPaywall] = useState(false);
+  const [lastSleep, setLastSleep] = useState<{ hours: number; quality: number } | null>(null);
+
+  const emojis = ["😞", "😕", "😐", "🙂", "😊"];
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("sleep_logs")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          const log = data[0];
+          const [bh, bm] = log.bedtime.split(":").map(Number);
+          const [wh, wm] = log.waketime.split(":").map(Number);
+          let diff = (wh * 60 + wm) - (bh * 60 + bm);
+          if (diff < 0) diff += 24 * 60;
+          setLastSleep({ hours: Math.round((diff / 60) * 10) / 10, quality: log.quality });
+        }
+      });
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;
