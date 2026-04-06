@@ -65,10 +65,6 @@ const DashboardPage = () => {
   const modeFromProfile: SessionMode = profile ? GOAL_TO_MODE[profile.goal] : "calm";
 
   const handleStartSession = (mode: SessionMode) => {
-    if (!canStartSession()) {
-      setShowPaywall(true);
-      return;
-    }
     navigate(`/session?mode=${mode}`);
   };
 
