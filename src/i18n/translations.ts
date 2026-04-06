@@ -253,6 +253,12 @@ export const translations = {
     "prep.next": "Next",
     "prep.headphones": "Headphones are essential",
 
+    // Mood Check-In
+    "mood.pre.title": "How are you feeling right now?",
+    "mood.pre.subtitle": "We'll compare this to how you feel after the session.",
+    "mood.pre.continue": "Continue",
+    "mood.pre.skip": "Skip",
+
     // Feedback
     "feedback.title": "How do you feel now?",
     "feedback.subtitle": "Your response helps us personalize future sessions",
