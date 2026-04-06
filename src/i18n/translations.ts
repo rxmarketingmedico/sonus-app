@@ -442,6 +442,20 @@ export const translations = {
     "general.minutes": "min",
     "general.hours": "h",
 
+    // Sleep Log
+    "nav.sleep": "Sleep",
+    "sleep.title": "Sleep Log",
+    "sleep.bedtime": "Bedtime",
+    "sleep.waketime": "Wake time",
+    "sleep.quality": "Sleep quality",
+    "sleep.hoursSlept": "hours slept",
+    "sleep.save": "Save entry",
+    "sleep.history": "Recent entries",
+    "sleep.noLogs": "No entries yet. Start tracking your sleep!",
+    "sleep.card.title": "Last night's sleep",
+    "sleep.card.noLog": "Log your sleep from last night",
+    "sleep.card.cta": "Log now",
+
     // Mode benefit labels
     "mode.sleep": "Sleep better",
     "mode.calm": "Feel calmer",
