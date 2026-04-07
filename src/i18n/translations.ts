@@ -204,7 +204,7 @@ export const translations = {
     "sales.hero.subtitle": "O Sonus acalma sua mente em 10 minutos.",
     "sales.hero.desc": "Sessões de terapia sonora com IA personalizadas para o seu humor e padrões emocionais.",
     "sales.hero.seePlans": "Ver planos",
-    "sales.hero.cta": "Assine agora",
+    "sales.hero.cta": "Começar agora",
     "sales.hero.noCreditCard": "Cancele quando quiser",
     "sales.hero.users": "usuários",
 
@@ -255,7 +255,7 @@ export const translations = {
     "sales.pricing.yr": "ano",
     "sales.pricing.save": "Economize 69% — equivale a US$ 2.50/mês",
     "sales.pricing.bestValue": "Melhor valor",
-    "sales.pricing.cta": "Assinar agora",
+    "sales.pricing.cta": "Começar agora",
     "sales.pricing.guarantee": "Cancele quando quiser.",
 
     "sales.pro.f1": "Sessões ilimitadas",
@@ -277,7 +277,7 @@ export const translations = {
 
     "sales.final.title": "Comece a dormir melhor hoje",
     "sales.final.desc": "Junte-se a milhares de pessoas que transformaram seu sono e bem-estar com o Sonus.",
-    "sales.final.cta": "Assinar agora",
+    "sales.final.cta": "Começar agora",
 
     "sales.youArePro": "Você é assinante Pro!",
 
@@ -495,7 +495,7 @@ export const translations = {
     "sales.hero.subtitle": "Sonus calms your mind in 10 minutes.",
     "sales.hero.desc": "AI-powered sound therapy sessions personalized to your mood and emotional patterns.",
     "sales.hero.seePlans": "See plans",
-    "sales.hero.cta": "Subscribe now",
+    "sales.hero.cta": "Get started",
     "sales.hero.noCreditCard": "Cancel anytime",
     "sales.hero.users": "users",
 
@@ -546,7 +546,7 @@ export const translations = {
     "sales.pricing.yr": "yr",
     "sales.pricing.save": "Save 69% — just US$ 2.50/mo",
     "sales.pricing.bestValue": "Best value",
-    "sales.pricing.cta": "Subscribe now",
+    "sales.pricing.cta": "Get started",
     "sales.pricing.guarantee": "Cancel anytime.",
 
     "sales.pro.f1": "Unlimited sessions",
@@ -568,7 +568,7 @@ export const translations = {
 
     "sales.final.title": "Your calm starts today.",
     "sales.final.desc": "Start your journey to better sleep and a calmer mind with Sonus.",
-    "sales.final.cta": "Subscribe now",
+    "sales.final.cta": "Get started",
 
     "sales.youArePro": "You're a Pro subscriber!",
 
