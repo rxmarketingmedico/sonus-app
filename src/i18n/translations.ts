@@ -204,7 +204,7 @@ export const translations = {
     "sales.hero.subtitle": "O Sonus acalma sua mente em 10 minutos.",
     "sales.hero.desc": "Sessões de terapia sonora com IA personalizadas para o seu humor e padrões emocionais.",
     "sales.hero.seePlans": "Ver planos",
-    "sales.hero.cta": "Assine agora",
+    "sales.hero.cta": "Começar agora",
     "sales.hero.noCreditCard": "Cancele quando quiser",
     "sales.hero.users": "usuários",
 
