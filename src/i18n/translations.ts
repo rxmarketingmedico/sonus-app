@@ -495,7 +495,7 @@ export const translations = {
     "sales.hero.subtitle": "Sonus calms your mind in 10 minutes.",
     "sales.hero.desc": "AI-powered sound therapy sessions personalized to your mood and emotional patterns.",
     "sales.hero.seePlans": "See plans",
-    "sales.hero.cta": "Subscribe now",
+    "sales.hero.cta": "Get started",
     "sales.hero.noCreditCard": "Cancel anytime",
     "sales.hero.users": "users",
 
