@@ -568,7 +568,7 @@ export const translations = {
 
     "sales.final.title": "Your calm starts today.",
     "sales.final.desc": "Start your journey to better sleep and a calmer mind with Sonus.",
-    "sales.final.cta": "Subscribe now",
+    "sales.final.cta": "Get started",
 
     "sales.youArePro": "You're a Pro subscriber!",
 
