@@ -546,7 +546,7 @@ export const translations = {
     "sales.pricing.yr": "yr",
     "sales.pricing.save": "Save 69% — just US$ 2.50/mo",
     "sales.pricing.bestValue": "Best value",
-    "sales.pricing.cta": "Subscribe now",
+    "sales.pricing.cta": "Get started",
     "sales.pricing.guarantee": "Cancel anytime.",
 
     "sales.pro.f1": "Unlimited sessions",
